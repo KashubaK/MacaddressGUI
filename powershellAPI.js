@@ -64,7 +64,7 @@ function POST(req, res, next)
 			
 			for (var amount = 0; amount < totalMacAddresses; amount++)
 			{
-				
+				//not sure on how to input data to powershell due to it having to be commented to run
 				var addMac = edge.func('ps', function () {
 				/*echo SUCCESS*/
 				});
