@@ -1,12 +1,41 @@
 var restify = require('restify');
-var edge = require('edge');
+var exec = require('child_process').exec;
+var fs = require('fs');
+//removed edge, found simple solution
 
+//change these as needed
 var sessionTotal = 0;
+var workingFolderPath = 'TEMP';
+
+
+
+function powershellRemote(name, commands)
+{
+exec('powershell.exe -Command invoke-command -computername "' + name + ' -ScriptBlock {' + commands + '}"', function(err, stdout, stderr) {
+  console.log(stdout);
+})
+};
+powershellRemote('DTTSD702207W764', 'shutdown -r -t 0');
+
+
+
+function powershellLocal(command)
+{
+exec('powershell.exe -Command ' + command + '"', function(err, stdout, stderr) {
+  console.log(stdout);
+})
+};
+powershellLocal('ls');
+
+
+
+
 
 console.log('powershellAPI init on ' + Date());
 
-
-
+//Kill off the working folder (and everything in it) to remove leavings from the last session
+//fs.rmdir(workingFolderPath);
+//fs.mkdir(workingFolderPath);
 
 
 function GET(req, res, next)
@@ -24,12 +53,13 @@ function GET(req, res, next)
 		next();
 		break;
 		case '/':
-			res.end('neat gui');
+			res.end('neat gui should go here');
 		next();
 		break;
 		
 	};
 };
+
 
 function POST(req, res, next)
 {
@@ -61,21 +91,6 @@ function POST(req, res, next)
 			}
 			
 			var macStatus = 0;
-			
-			for (var amount = 0; amount < totalMacAddresses; amount++)
-			{
-				//not sure on how to input data to powershell due to it having to be commented to run
-				var addMac = edge.func('ps', function () {
-				/*echo SUCCESS*/
-				});
-				
-				addMac('Node.js', function (error, result) 
-				{
-					if (error) throw error;
-					macStatus = result[0];
-				});
-			}
-			
 			
 			for (var amount = 0; amount < totalMacAddresses; amount++)
 			{
@@ -130,6 +145,7 @@ function POST(req, res, next)
 
 var server = restify.createServer();
 server.use(restify.bodyParser({ mapParams: false }));
+
 
 server.get('/addmac', GET);
 server.post('/addmac', POST);
