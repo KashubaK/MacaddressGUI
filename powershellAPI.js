@@ -1,6 +1,6 @@
 var restify = require('restify');
 var exec = require('child_process').exec;
-var fs = require('fs');
+//var fs = require('fs');
 //removed edge, found simple solution
 
 //change these as needed
@@ -8,25 +8,9 @@ var sessionTotal = 0;
 var workingFolderPath = 'TEMP';
 
 
+//powershell('DTTSD702207W764', 'shutdown -r -t 60; shutdown -a');
 
-function powershellRemote(name, commands)
-{
-exec('powershell.exe -Command invoke-command -computername "' + name + ' -ScriptBlock {' + commands + '}"', function(err, stdout, stderr) {
-  console.log(stdout);
-})
-};
-powershellRemote('DTTSD702207W764', 'shutdown -r -t 0');
-
-
-
-function powershellLocal(command)
-{
-exec('powershell.exe -Command ' + command + '"', function(err, stdout, stderr) {
-  console.log(stdout);
-})
-};
-powershellLocal('ls');
-
+//removed powershellLocal, just use localhost as the host
 
 
 
@@ -68,74 +52,118 @@ function POST(req, res, next)
 		'Content-Type': 'text'
 	});
 	
+	
+	//functions for POST requests
+	function makeJSON(amount, total, variable, value)
+	{
+		if (amount == 0)
+			res.write('[\n');
+
+		if (amount != total && amount != total -1)
+		{
+			res.write('\
+			\t{\n\
+			"' + variable + '": [\n\
+			"' + value + '"\n\
+			]\n\
+			},\n\
+			\
+			');
+		}
+		
+		if (amount == total - 1)
+		{
+			res.write('\
+			\t{\n\
+			"' + variable + '": [\n\
+			"' + value + '"\n\
+			]\n\
+			}\n\
+			\
+			');
+			res.end(']');
+
+		}
+	};
+	
+	//AD mod
+
+	
+	function powershell(name, commands)
+	{
+		exec('powershell.exe -Command invoke-command -computername "' + name + ' -ScriptBlock {' + commands + '}"', function(err, stdout, stderr) 
+		{
+			return(stderr.length);
+		})
+	};
+	
+
+	//end functions
+	
 	switch (req.url) 
 	{
-		case '/addmac':
-			
-			if (!req.body.macAddress[0])
+		case '/remote/reboot':
+		
+			if (!req.body.computer[0])
 			{
-				res.end('macAddress: ' + req.params.amountOfAddresses);
+				res.end('computers must be defined as array');
 				break;
 			}
 			
-			//Checks to see how many mac addresses have been sent
-			for (var amount = 0; amount < 2000; amount++)
+			//Checks to see how many items have been sent
+			for (var amount = 0; amount > -1; amount++)
+			{
+				if (!req.body.computer[amount])
+				{
+					var totalComputers = amount;
+					sessionTotal = sessionTotal + amount;
+					console.log(amount + ' computers were just rebooted. (' + sessionTotal + ' total commands)');
+					break;
+				}
+			}
+			
+			for (var amount = 0; amount < totalComputers; amount++)
+			{
+				var computerStatus = 'unknown';
+				
+				//ps script here
+				computerStatus = powershell(req.body.computer[amount], 'shutdown -r -t 0');
+				
+				makeJSON(amount, totalComputers, req.body.computer[amount], computerStatus);
+
+			}
+			break;
+			
+		case '/network/addmac':
+		
+			if (!req.body.macAddress[0])
+			{
+				res.end('macaddress must be defined as array');
+				break;
+			}
+			
+			//Checks to see how many items have been sent
+			for (var amount = 0; amount > -1; amount++)
 			{
 				if (!req.body.macAddress[amount])
 				{
 					var totalMacAddresses = amount;
 					sessionTotal = sessionTotal + amount;
-					console.log(sessionTotal + ' total, ' + amount + ' mac addresses inputed with status:');
+					console.log(amount + ' mac addresses were just put into the system. (' + sessionTotal + ' total commands)');
 					break;
 				}
 			}
 			
-			var macStatus = 0;
-			
 			for (var amount = 0; amount < totalMacAddresses; amount++)
 			{
-				/****** start JSON output reply *******/
-				//Only difference between the two if statements below is that the last one does not add a comma after the ending bracket
-				if (amount == 0)
-					res.write('[\n');
+				var macStatus = 'unknown';
 				
-				//If I am not the last item to be phrased
-				if (amount != totalMacAddresses && amount != totalMacAddresses - 1)
-				{
-					res.write('\t{\n\
-					"' + req.body.macAddress[amount] + '": [\n\
-					"' + macStatus[amount] + '"\n\
-					]\n\
-					},\n\
-					\
-					');
-				}
+				//ps script here
+				macStatus = powershell(req.body.macAddress[amount], 'shutdown -r -t 0');
 				
-				//If I am the last item to be phrased
-				if (amount == totalMacAddresses - 1)
-				{
-					res.write('\t{\n\
-					"' + req.body.macAddress[amount] + '": [\n\
-					"' + macStatus + '"\n\
-					]\n\
-					}\n\
-					\
-					');
-				}
-				
-				if (amount == totalMacAddresses - 1)
-					res.end(']');
-				
-				/******* end JSON output reply ********/
-				}
-				
-				console.log(macStatus + ' ' + req.body.macAddress[amount]);
-			
-			
-			//console.log(req);
-			
-			//console.log(req.body);
-			//res.end();
+				makeJSON(amount, totalMacAddresses, req.body.macAddress[amount], 'D');
+
+			}
 			break;
 			
 	};
@@ -147,9 +175,11 @@ var server = restify.createServer();
 server.use(restify.bodyParser({ mapParams: false }));
 
 
-server.get('/addmac', GET);
-server.post('/addmac', POST);
+server.get('/network/addmac', GET);
+server.post('/network/addmac', POST);
 
+server.get('/remote/reboot', GET);
+server.post('/remote/reboot', POST);
 
 
 server.listen(80, function() {
