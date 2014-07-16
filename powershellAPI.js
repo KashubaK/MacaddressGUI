@@ -58,7 +58,7 @@ function POST(req, res, next)
 	});
 	
 	
-	//functions for POST requests
+	//to quickly pop out JSON
 	function makeJSON(amount, total, variable, value)
 	{
 		if (amount == 0)
@@ -104,7 +104,62 @@ function POST(req, res, next)
 		})
 	};
 	
-
+	//init a powershell command and return it to the client (cuts the amount of code by four)
+	function sendAndReturnPS(name, host, commands, amount, total, special)
+	{
+		exec('powershell.exe -Command invoke-command -computername ' + host + ' -ScriptBlock {' + commands + '}"', function(err, stdout, stderr) 
+		{
+			switch(special)
+			{
+				case 'robocopy':
+					var result = stdout.substring(stdout.length - 36, stdout.length - 4);
+					break;
+				default:
+					if(stderr)
+					{
+						var result = 'ERROR';
+					}
+					if(stdout)
+					{
+						var result = 'SUCCESS';
+					}
+					break;
+			}
+			
+			
+			res.write('[');
+			if (amount != total && amount != total -1)
+			{
+				res.write('\
+				\t{\n\
+				"' + name + '": [\n\
+				"' + result + '"\n\
+				]\n\
+				},\n\
+				\
+				');
+			}
+			
+			if (amount == total - 1)
+			{
+				res.write('\
+				\t{\n\
+				"' + name + '": [\n\
+				"' + result + '"\n\
+				]\n\
+				}\n\
+				\
+				');
+				res.end(']');
+			}
+			console.log('Done with command ' + commands + ' on host ' + host + ' with name ' + name);
+			console.log(stderr + stdout);
+		})
+	};
+	
+	
+	//TODO: Add remote ssh support
+	
 	//end functions
 	
 	switch (req.url) 
@@ -145,70 +200,28 @@ function POST(req, res, next)
 				{
 					var totalComputers = amount;
 					sessionTotal = sessionTotal + amount;
-					console.log(amount + ' createing coppying folder on computers... (' + sessionTotal + ' total commands)');
 					break;
 				}
 			}
 			
 			for (var amount = 0; amount < totalComputers; amount++)
 			{
-				var computerStatus = 'unknown';
-				
-				//ps script here
-				console.log(amount);
-				computerStatus = powershell(req.body.computer[amount], 'robocopy "' + req.body.path[0] + '" "' + req.body.path[1] + '" /E');
-				
-				exec('powershell.exe -Command invoke-command -computername ' + req.body.computer[amount] + ' -ScriptBlock { robocopy "' + req.body.path[0] + '" "' + req.body.path[1] + '" /E' + '}', function(err, stdout, stderr) 
-				{
-					//console.log(amount);
-					computerStatus = stdout.length;
-					//res.write(stdout);
-					
-					console.log('amount: ' + amount + ' total: ' + totalComputers);
-					if (amount == 1)
-						res.write('[\n');
-					
-					if (amount != totalComputers && amount != total -1)
-					{
-						res.write('\
-						\t{\n\
-						"' + req.body.computer[amount] + '": [\n\
-						"' + /*stdout.length*/ + '"\n\
-						]\n\
-						},\n\
-						\
-						');
-					}
-					
-					if (amount == totalComputers)
-					{
-						res.write('\
-						\t{\n\
-						"' + req.body.computer[amount - 1] + '": [\n\
-						"' + stdout.length + '"\n\
-						]\n\
-						}\n\
-						\
-						');
-						res.end(']');
-
-					}
-					res.end();
-				})
+				sendAndReturnPS(req.body.computer[amount], req.body.computer[amount], 'robocopy "' + req.body.path[0] + '" "' + req.body.path[1] + '" /E', amount, totalComputers, 'robocopy');
 			}
+			
 			break;
 		
 		case '/remote/mkdir':
 		
 			if (!req.body.computer[0])
 			{
-				res.end('computers must be defined as array');
+				makeJSON(0, 1, 'ERROR', 'Computers must be defined as array starting at 0');
 				break;
 			}
 			
 			if (!req.body.path)
 			{
-				res.end('folder must be defined as var');
+				makeJSON(0, 1, 'ERROR', 'Var path must be defined!');
 				break;
 			}
 			
@@ -220,35 +233,28 @@ function POST(req, res, next)
 				{
 					var totalComputers = amount;
 					sessionTotal = sessionTotal + amount;
-					console.log(amount + ' createing folder on computers... (' + sessionTotal + ' total commands)');
 					break;
 				}
 			}
 			
 			for (var amount = 0; amount < totalComputers; amount++)
 			{
-				var computerStatus = 'unknown';
-				
-				//ps script here
-				console.log(amount);
-				computerStatus = powershell(req.body.computer[amount], 'mkdir "' + req.body.path + '"');
-				
-				makeJSON(amount, totalComputers, req.body.computer[amount], computerStatus);
-
+				sendAndReturnPS(req.body.computer[amount], req.body.computer[amount], 'mkdir "' + req.body.path + '"', amount, totalComputers);
 			}
+			
 			break;
 			
 		case '/remote/rmdir':
 		
 			if (!req.body.computer[0])
 			{
-				res.end('computers must be defined as array');
+				makeJSON(0, 1, 'ERROR', 'Computers must be defined as array starting at 0');
 				break;
 			}
 			
 			if (!req.body.path)
 			{
-				res.end('folder must be defined as var');
+				makeJSON(0, 1, 'ERROR', 'Var path must be defined!');
 				break;
 			}
 			
@@ -260,23 +266,17 @@ function POST(req, res, next)
 				{
 					var totalComputers = amount;
 					sessionTotal = sessionTotal + amount;
-					console.log(amount + ' removing folder on computers... (' + sessionTotal + ' total commands)');
 					break;
 				}
 			}
 			
 			for (var amount = 0; amount < totalComputers; amount++)
 			{
-				var computerStatus = 'unknown';
-				
-				//ps script here
-				console.log(req.body.computer[amount]);
-				computerStatus = powershell(req.body.computer[amount], 'rmdir "' + req.body.path + '" -r');
-				
-				makeJSON(amount, totalComputers, req.body.computer[amount], computerStatus);
-
+				sendAndReturnPS(req.body.computer[amount], req.body.computer[amount], 'rmdir "' + req.body.path + '"', amount, totalComputers);
 			}
+			
 			break;
+		
 		
 		
 		
@@ -284,9 +284,10 @@ function POST(req, res, next)
 		
 			if (!req.body.computer[0])
 			{
-				res.end('computers must be defined as array');
+				makeJSON(0, 1, 'ERROR', 'Computers must be defined as array starting at 0');
 				break;
 			}
+			
 			
 			//Checks to see how many items have been sent
 			for (var amount = 0; amount > -1; amount++)
@@ -295,22 +296,17 @@ function POST(req, res, next)
 				{
 					var totalComputers = amount;
 					sessionTotal = sessionTotal + amount;
-					console.log(amount + ' computers were just rebooted. (' + sessionTotal + ' total commands)');
 					break;
 				}
 			}
 			
 			for (var amount = 0; amount < totalComputers; amount++)
 			{
-				var computerStatus = 'unknown';
-				
-				//ps script here
-				computerStatus = powershell(req.body.computer[amount], 'shutdown -r -t 0');
-				
-				makeJSON(amount, totalComputers, req.body.computer[amount], computerStatus);
-
+				sendAndReturnPS(req.body.computer[amount], req.body.computer[amount], 'shutdown -r -t 0 "' + req.body.path + '"', amount, totalComputers);
 			}
+			
 			break;
+			
 			
 		case '/network/addmac':
 		
@@ -334,12 +330,6 @@ function POST(req, res, next)
 			
 			for (var amount = 0; amount < totalMacAddresses; amount++)
 			{
-				var macStatus = 'unknown';
-				
-				//ps script here
-				macStatus = powershell(req.body.macAddress[amount], 'shutdown -r -t 0');
-				
-				makeJSON(amount, totalMacAddresses, req.body.macAddress[amount], 'D');
 
 			}
 			break;
