@@ -61,33 +61,14 @@ function POST(req, res, next)
 	//to quickly pop out JSON
 	function makeJSON(amount, total, variable, value)
 	{
-		if (amount == 0)
-			res.write('[\n');
-
 		if (amount != total && amount != total -1)
 		{
-			res.write('\
-			\t{\n\
-			"' + variable + '": [\n\
-			"' + value + '"\n\
-			]\n\
-			},\n\
-			\
-			');
+			res.write('{"' + variable + '":"' + value + '",');
 		}
 		
 		if (amount == total - 1)
 		{
-			res.write('\
-			\t{\n\
-			"' + variable + '": [\n\
-			"' + value + '"\n\
-			]\n\
-			}\n\
-			\
-			');
-			res.end(']');
-
+			res.end('"' + variable + '":"' + value + '"}');
 		}
 	};
 	
