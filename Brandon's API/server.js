@@ -9,20 +9,6 @@ app.configure(function() {
 	app.use(express.logger('dev')); 						// log every request to the console
 	app.use(express.bodyParser()); 							// pull information from html in POST
 });
-
-var client = ldap.createClient({
-  url: 'ldap://10.0.0.7'
-});
-
-client.bind('martinb@peninsula.wednet.edu', 'mart8074', function(err){
-	if (!err) {
-		console.log("Bound to LDAP!");
-	} else {
-		console.log("Encountered an error :(");
-		console.log(err.message);
-	}
-});
-
 // routes ===============
 
 app.post('/api/address', function(req, res) {

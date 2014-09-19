@@ -6,7 +6,7 @@ function mainController($scope, $http) {
 
 	// when submitting the add form, send the text to the node API
 	$scope.createAddresses = function() {
-		$http.post('/api/address', $scope.addresses)
+		$http.post('http://localhost/network/addmac', $scope.addresses)
 			.success(function(data) {
 				$scope.addresses = data;
 				console.log(data);
@@ -14,6 +14,7 @@ function mainController($scope, $http) {
 			.error(function(data) {
 				console.log('Error: ' + data);
 			});
+		
 	};
 
 
@@ -47,27 +48,36 @@ function mainController($scope, $http) {
 	};
 
 
-
 	// Function to clean up mess in pasted mac addresses
 	$scope.cleanAddress = function(address) {
-		address.address = address.address.toLowerCase();
-		address.address = address.address.replace(/ /g, '');
-		address.address = address.address.replace(/:/g, '');
-		address.address = address.address.replace(/l/g, '1');
-		address.address = address.address.replace(/o/g, '0');
-		address.address = address.address.replace(/i/g, '1');
+		if (address.address) {
+			address.address = address.address.toLowerCase();
+			address.address = address.address.replace(/ /g, '');
+			address.address = address.address.replace(/:/g, '');
+			address.address = address.address.replace(/l/g, '1');
+			address.address = address.address.replace(/o/g, '0');
+			address.address = address.address.replace(/i/g, '1');
+			address.address = address.address.replace(/[^a-f0-9]/g, '');
 
-		if (address.address.replace(/[^a-f0-9]/g, '') !== address.address) {
-			address.valid = false;
-		} else {
-			address.valid = true;
-		}
+			if (address.address.indexOf(/[^0-9]/g) == 12) {
+				$scope.addAddress("");
+			}
+
+			if (address.address.replace(/[^a-f0-9]/g, '') !== address.address || address.address.length !== 12) {
+				address.valid = false;
+			} else {
+				address.valid = true;
+			}
 		//address.address = address.address.replace(/[^a-f0-9]/g, '');
+			if (!address.address.indexOf(/[^a-f0-9]/g)) {
+				address.valid = false;
+			}
+			if (address.address.length >= 12) {
+				$scope.addAddress(address.address.substr(12, address.address.length));
+				address.address = address.address.substr(0, 12);
+			}
 
-		if (address.address.length >= 12) {
-			$scope.addAddress(address.address.substr(12, address.address.length));
-			address.address = address.address.substr(0, 12);
+			return address;
 		}
-		return address;
 	}
 }

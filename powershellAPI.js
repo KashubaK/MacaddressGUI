@@ -1,6 +1,6 @@
 var restify = require('restify');
 var exec = require('child_process').exec;
-//var fs = require('fs');
+var fs = require('fs');
 //removed edge, found simple solution
 
 
@@ -11,7 +11,8 @@ var exec = require('child_process').exec;
 //change these as needed
 var sessionTotal = 0;
 var workingFolderPath = 'TEMP';
-
+var macAddress = ["test1", "test2"];
+console.log(macAddress[0]);
 
 //powershell('DTTSD702207W764', 'shutdown -r -t 60; shutdown -a');
 
@@ -52,10 +53,7 @@ function GET(req, res, next)
 
 function POST(req, res, next)
 {
-	res.writeHead(200, 
-	{
-		'Content-Type': 'text'
-	});
+	
 	
 	
 	//to quickly pop out JSON
@@ -290,34 +288,25 @@ function POST(req, res, next)
 			
 			
 		case '/network/addmac':
-		
-			if (!req.body.macAddress[0])
-			{
-				res.end('macaddress must be defined as array');
-				break;
-			}
 			
-			//Checks to see how many items have been sent
-			for (var amount = 0; amount > -1; amount++)
-			{
-				if (!req.body.macAddress[amount])
-				{
-					var totalMacAddresses = amount;
-					sessionTotal = sessionTotal + amount;
-					console.log(amount + ' mac addresses were just put into the system. (' + sessionTotal + ' total commands)');
-					break;
-				}
-			}
 			
-			for (var amount = 0; amount < totalMacAddresses; amount++)
-			{
+			
+				
 
-			}
+				//if (address != null) {
+				/*sendAndReturnPS(req.body.macAddress[amount], req.body.macAddress[amount], ', amount, totalMacAddresses)
+				{
+					
+				};
+				*/
+			
+
+			
 			break;
 			
 	};
 	
-	next();
+	
 };
 
 var server = restify.createServer();
@@ -328,7 +317,35 @@ server.get('/', GET);
 server.post('/', POST);
 
 server.get('/network/addmac', GET);
-server.post('/network/addmac', POST);
+
+
+
+server.post('/network/addmac', function(req, res){
+
+	res.writeHead(200, 
+	{
+		'Content-Type': 'text',
+		'Access-Control-Allow-Origin': 'http://localhost:8080'
+	});
+
+	var macAddress = req.body;
+
+	for (var amount = 0; amount < macAddress.length; amount++){
+		if (macAddress[amount].valid) {
+			exec('powershell.exe C:/Users/serv_datascript/Desktop/New-MacAddress.ps1 ' + macAddress[amount].address, function(err, stdout, stderr) {
+				console.log(stdout);
+				macAddress[amount].added = true;
+				return(stderr.length);
+			});
+			res.end("Mac Address '" + macAddress.address + "' has been entered correctly.");
+		} else {
+			res.end("Invalid Mac Address Detected.");
+		}
+	}
+});
+
+
+
 
 server.get('/remote/reboot', GET);
 server.post('/remote/reboot', POST);
