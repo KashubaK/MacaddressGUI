@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html ng-app="webTool">
+	<head>
+		<title>Powershell WebTool</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+		<link rel="stylesheet" href="http://bootswatch.com/darkly/bootstrap.min.css">
+		<link rel="stylesheet" href="http://bootswatch.com/darkly/bootstrap.css">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>						
+ 		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+ 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.8/angular.min.js"></script>
+ 		<script src="core.js"></script>
+		<style>
+		a {
+			border-radius: 0px;
+		}
+		tr {
+			display: none;
+		}
+		table {
+			display: none;
+		}
+		</style>
+	</head>
+	
+	<body ng-controller="mainController">
+		<script> 
+			var items = [];
+			var directories = [];
+			var generalDirectory = "//fs2/scripts/WebTool/";
+			var happened = false;
+			var macHappened = false;
+
+			function hitAPI() {
+				if (!happened) {
+					$.getJSON("/network/getdirectories", function(data){
+						for(i = 0; i < data.length; i++) {
+							var pos = data.indexOf(data[i]) + 1;
+							data[i] = data[i].replace(data[i].substring(0, 22), "");
+							var fileDirectory = generalDirectory + data[i];
+							$('#scripts').append("<tr id='tr"+pos.toString()+"'>"+pos.toString()+"</tr>");
+							$('#tr' +pos.toString()).append('<td align="center" onClick="run("' +fileDirectory.toString()+ '"")">'+data[i]+"</td>");
+							$('#tr' +pos.toString()).append('<td align="center">' +fileDirectory.toString()+ '</td>');
+							$( '#tr' +pos).show('slow');
+							$( 'tr' ).show('slow');
+							$( '#td' ).show('slow');
+							$( '#th' ).show('slow');
+							$( 'table' ).show('slow');
+						};
+					});
+					happened = true;
+				};
+			};
+
+			function showTool() {
+				if (!macHappened) {
+					$ ( '#macaddr' ).show('slow');
+					macHappened = true;
+				}
+			}
+
+			function run() {
+
+			}
+		</script>
+		<!-- create buttons !-->
+		<a class="btn btn-default" onclick="hitAPI()" style="border-radius: 0px">Get Scripts</a>
+		<br>
+		<a class="btn btn-default" onclick="showTool()" style="border-radius: 0px">Add Mac Address</a>
+
+		<!-- create mac address form, keep hidden !-->
+		<div id="macaddr" style="display: none">
+			<div class="container" style="border-radius: 0px">
+
+				<div class="row" style="border-radius: 0px">
+					<div class="col-sm-4 col-sm-offset-4 well" style="border-radius: 0px">
+						<legend>Mac Address Tool</legend>
+							<!-- FORM TO CREATE ADDRESSES -->
+							<div ng-repeat="address in addresses track by $index">
+								<div class="form-group" ng-class="{'has-error': address.valid !== true}" style="border-radius: 0px">
+									<input ng-keydown="checkAddress(address, $event, $index)" ng-keyup="checkAddress(address, $event, $index)"  ng-model="$parent.addresses[$index].address" ng-init="focusInput(address)" class='form-control' type="text" style="border-radius: 0px" />
+								</div>
+							</div>
+						<a ng-click="addAddress('')" class="btn btn-primary" style="border-radius: 0px">Add</a>
+						<a ng-click="createAddresses()" class="btn btn-primary" style="border-radius: 0px">Submit</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- create table for scripts, hidden in css !-->
+		<table class="table table-striped table-hover " id="scripts">
+			<tbody id="scripts">
+				<tr>
+					<td align="center">Script Name</td>
+					<td align="center">Script Directory</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</body>
+
+</html>

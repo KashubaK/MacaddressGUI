@@ -1,0 +1,11 @@
+  {
+  "name"         : "macaddress-tool",
+  "version"      : "0.0.1",
+  "description"  : "Simple Mac address management application.",
+  "main"         : "server.js",
+  "author"       : "Brandon",
+  "dependencies" : {
+    "express"    : "~3.4.4",
+    "ldapjs"   : "~0.7.1"
+    }
+  }

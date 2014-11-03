@@ -6,7 +6,7 @@ function mainController($scope, $http) {
 
 	// when submitting the add form, send the text to the node API
 	$scope.createAddresses = function() {
-		$http.post('http://localhost/network/addmac', $scope.addresses)
+		$http.post('/network/addmac', $scope.addresses)
 			.success(function(data) {
 				$scope.addresses = data;
 				console.log(data);
@@ -59,7 +59,7 @@ function mainController($scope, $http) {
 			address.address = address.address.replace(/i/g, '1');
 			address.address = address.address.replace(/[^a-f0-9]/g, '');
 
-			if (address.address.indexOf(/[^0-9]/g) == 12) {
+			if (address.address.indexOf(/[^0-9]/g) == 11) {
 				$scope.addAddress("");
 			}
 
