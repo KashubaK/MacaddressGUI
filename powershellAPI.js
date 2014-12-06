@@ -25,57 +25,101 @@ function cleanInput(input, level)
 	return output;
 }
 
+function sendCommandToComputer(command, computerName, callback)
+{
+	//Runs the command and calls back the output. Takes a string, another string, and a callback.
+	console.log("sendCommand:runCommand:" + computerName + ":" + command);
+	process.exec('powershell.exe -Command invoke-command -computername ' + computerName + ' -ScriptBlock {' + command + '}"', addResultsToArray);
+
+
+	function addResultsToArray(error, stdout, stderr)
+	{
+		callback({ "computer": computerName, "command": command, "error": error, "stdout": stdout, "stderr": stderr });
+	}
+}
 
 
 
 
 
+function sendCommandToMultipleComputers(command, computerList, callback)
+{
+	//Input a command (string), and an array of computers. Takes a string, array of strings, and a callback.
 
+	if (typeof command == "undefined" || typeof computerList == "undefined")
+	{
+		callback({ "error": "Bad input for function sendCommand!" });
+	}
+
+	var computers = [];
+
+	for (var computerAmount = 0; computerAmount < computerList.length; computerAmount++)
+	{
+		sendCommandToComputer(command, computerList[computerAmount], computerList.length, countResults);
+	}
+
+	
+
+
+	var totalAmount = 0;
+	function countResults(resultFromComputer)
+	{
+		console.log(resultFromComputer);
+		//Keeps track of total # of commands ran. Calls back when done.
+		console.log("sendCommand:countResults:" + totalAmount + ":" + computerList.length);
+		totalAmount++;
+		if (totalAmount == computerList.length)
+		{
+			console.log("Callback!");
+			callback(computers);
+		}
+	}
+}
+
+
+
+
+function sendMultipleCommandsToMultipleComputers(commands, computers, callback)
+{
+	//Runs the sendCommand function for each command. Takes two arrays of strings and a callback.
+	var result = [];
+	for (var amount = 0; commands.length  > amount; amount++)
+	{
+		sendCommandToMultipleComputers(commands[amount], computers, countRanCommands);
+	}
+
+	var amountDone = 0;
+	function countRanCommands(resultsFromComputers)
+	{
+		amountDone++;
+		console.log("sendMultipleCommands:countRanCommands:" + amountDone + ":" + commands.length);
+		results.push(resultsFromComputers);
+		if (amountDone == commands.length)
+		{
+			//Everything is done running!
+			callback(computers);
+		}
+	}
+}
+
+function sendMultipleCommandsSequentialy()
+{
+
+}
 
 function api(req, res, next)
 {
-	function sendCommand(command, computerList, callback)
-	{
-		//Input a command (string), and an array of computers.
-
-		for (var amt = 0; amt < computerList.length; amt++)
-		{
-			runCommand(command, computerList[amt], computerList.length);
-		}
-
-		var computers = [];
-		function runCommand(command, computerName)
-		{
-			console.log(command);
-			process.exec('powershell.exe -Command invoke-command -computername ' + computerName + ' -ScriptBlock {' + command + '}"', addResultsToArray);
-
-
-			function addResultsToArray(error, stdout, stderr)
-			{
-				computers.push({"name": computerName, "error": error, "stdout": stdout, "stderr": stderr });
-				countResults();
-			}
-		}
-
-		totalAmount = 0;
-		function countResults()
-		{
-			console.log(totalAmount);
-			totalAmount++;
-			if (totalAmount == computerList.length)
-			{
-				callback(computers);
-			}
-		}
-	}
+	res.setHeader('Content-Type', 'application/json');
 
 	switch(req.url)
 	{
-		case '/powershell/sendcommand':
+		case '/powershell/sendCommand':
 			console.log(req.body);
-			sendCommand(req.body.command, req.body.computers, returnResults);
+
+			sendCommandToComputer("req.body.command", "req.body.computers", returnResults);
 			function returnResults(results)
 			{
+				console.log(results);
 				res.end(JSON.stringify(results));
 			}
 
