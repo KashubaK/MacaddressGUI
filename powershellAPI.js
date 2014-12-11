@@ -1,6 +1,6 @@
 var restify = require('restify');
 var process = require('child_process');
-//var fs = require('fs');
+
 
 
 
@@ -25,107 +25,195 @@ function cleanInput(input, level)
 	return output;
 }
 
-function sendCommandToComputer(command, computerName, callback)
+var times = [];
+function startTimer(label)
 {
-	//Runs the command and calls back the output. Takes a string, another string, and a callback.
+	//Adds the time in unix time to the timer array.
+	times[label] = (new Date).getTime();
+}
+function pollTimer(label)
+{
+	//Returns the amount of time since the timer was created (in ms).
+	return (new Date).getTime() - times[label];
+}
+function endTimer(label)
+{
+	//Returns the amount of time since the timer was created (in ms). Also removes the label from the timer array so that it may be used again.
+	var oldTime = times[label];
+	delete times[label];
+	return (new Date).getTime() - oldTime; 
+}
+
+
+
+
+
+
+function sendCommandToSSHComputer(command, computerName, callback)
+{
+	//Runs the command using powershell's invoke-command function and calls back the output. Takes a string, another string, and a callback.
 	console.log("sendCommand:runCommand:" + computerName + ":" + command);
+	startTimer(computerName + ":" + command);
+	process.exec('ssh.exe administrator@' + computerName + ' ' + command, addResultsToArray);
+
+
+	function addResultsToArray(error, stdout, stderr)
+	{
+
+		callback({ "computer": computerName, "assumedLocation": computerName.substring(2,5), "delay": endTimer(computerName + ":" + command), "command": command, "error": error, "stdout": stdout, "stderr": stderr });
+	}
+}
+
+function sendCommandToManySSHComputers(command, computers, callback)
+{
+	//Runs the sendCommandToSSHComputer function for each computer. Inputs a string for command, array for computers, and a callback.
+	for (var amount = 0; amount < computers.length; amount++)
+	{
+		console.log(amount + ":" + computers[amount]);
+		sendCommandToSSHComputer(command, computers[amount], collectResponses);
+	}
+
+	var responses = [];
+	var responsesAmt = 0;
+	function collectResponses(result)
+	{
+		responsesAmt++;
+		responses.push(result);
+		console.log(responsesAmt + ":" + computers.length);
+		if (responsesAmt == computers.length)
+		{
+			callback(responses);
+		}
+	}
+}
+
+
+
+function sendManyCommandsToManySSHComputers(commands, computers, callback)
+{
+	//Runs the sendCommandToManySSHComputers function for each command. Inputs command as an array, computers as an array, and it takes a callback.
+	for (var amount = 0; amount < commands.length; amount++)
+	{
+		console.log(amount + ":" + commands[amount]);
+		sendCommandToManySSHComputers(commands[amount], computers, collectResponses);
+	}
+
+	var responses = [];
+	var responsesAmt = 0;
+	function collectResponses(result)
+	{
+		responsesAmt++;
+		responses.push(result);
+		console.log(responsesAmt + ":" + commands.length);
+		if (responsesAmt == commands.length)
+		{
+			callback(responses);
+		}
+	}
+}
+
+
+
+function sendCommandToWindowsComputer(command, computerName, callback)
+{
+	//Runs the command using powershell's invoke-command function and calls back the output. Takes a string, another string, and a callback.
+	console.log("sendCommand:runCommand:" + computerName + ":" + command);
+	startTimer(computerName + ":" + command);
 	process.exec('powershell.exe -Command invoke-command -computername ' + computerName + ' -ScriptBlock {' + command + '}"', addResultsToArray);
 
 
 	function addResultsToArray(error, stdout, stderr)
 	{
-		callback({ "computer": computerName, "command": command, "error": error, "stdout": stdout, "stderr": stderr });
+
+		callback({ "computer": computerName, "assumedLocation": computerName.substring(2,5), "delay": endTimer(computerName + ":" + command), "command": command, "error": error, "stdout": stdout, "stderr": stderr });
 	}
 }
 
-
-
-
-
-function sendCommandToMultipleComputers(command, computerList, callback)
+function sendCommandToManyWindowsComputers(command, computers, callback)
 {
-	//Input a command (string), and an array of computers. Takes a string, array of strings, and a callback.
-
-	if (typeof command == "undefined" || typeof computerList == "undefined")
+	//Runs the sendCommandToWindowsComputer function for each computer. Inputs a string for command, array for computers, and a callback.
+	for (var amount = 0; amount < computers.length; amount++)
 	{
-		callback({ "error": "Bad input for function sendCommand!" });
+		console.log(amount + ":" + computers[amount]);
+		sendCommandToWindowsComputer(command, computers[amount], collectResponses);
 	}
 
-	var computers = [];
-
-	for (var computerAmount = 0; computerAmount < computerList.length; computerAmount++)
+	var responses = [];
+	var responsesAmt = 0;
+	function collectResponses(result)
 	{
-		sendCommandToComputer(command, computerList[computerAmount], computerList.length, countResults);
-	}
-
-	
-
-
-	var totalAmount = 0;
-	function countResults(resultFromComputer)
-	{
-		console.log(resultFromComputer);
-		//Keeps track of total # of commands ran. Calls back when done.
-		console.log("sendCommand:countResults:" + totalAmount + ":" + computerList.length);
-		totalAmount++;
-		if (totalAmount == computerList.length)
+		responsesAmt++;
+		responses.push(result);
+		console.log(responsesAmt + ":" + computers.length);
+		if (responsesAmt == computers.length)
 		{
-			console.log("Callback!");
-			callback(computers);
+			callback(responses);
 		}
 	}
 }
 
 
 
-
-function sendMultipleCommandsToMultipleComputers(commands, computers, callback)
+function sendManyCommandsToManyWindowsComputers(commands, computers, callback)
 {
-	//Runs the sendCommand function for each command. Takes two arrays of strings and a callback.
-	var result = [];
-	for (var amount = 0; commands.length  > amount; amount++)
+	//Runs the sendCommandToManyWindowsComputers function for each command. Inputs command as an array, computers as an array, and it takes a callback.
+	for (var amount = 0; amount < commands.length; amount++)
 	{
-		sendCommandToMultipleComputers(commands[amount], computers, countRanCommands);
+		console.log(amount + ":" + commands[amount]);
+		sendCommandToManyWindowsComputers(commands[amount], computers, collectResponses);
 	}
 
-	var amountDone = 0;
-	function countRanCommands(resultsFromComputers)
+	var responses = [];
+	var responsesAmt = 0;
+	function collectResponses(result)
 	{
-		amountDone++;
-		console.log("sendMultipleCommands:countRanCommands:" + amountDone + ":" + commands.length);
-		results.push(resultsFromComputers);
-		if (amountDone == commands.length)
+		responsesAmt++;
+		responses.push(result);
+		console.log(responsesAmt + ":" + commands.length);
+		if (responsesAmt == commands.length)
 		{
-			//Everything is done running!
-			callback(computers);
+			callback(responses);
 		}
 	}
-}
-
-function sendMultipleCommandsSequentialy()
-{
-
 }
 
 function api(req, res, next)
 {
 	res.setHeader('Content-Type', 'application/json');
 
+	var commands = { 
+		"sendPowershellCommand": "Sends powershell commnads to a list of computers. Requires there to be a commands array (of commands to be ran), and a computers array.",
+		"sendSSHCommand": "Sends SSH commands to a list of coputers. Requires there to be a comands array (of commands to be ran), and a computers array."/*,
+		"addMacAddress": "Requires there to be an array of macadresses to be added to the mac address database."*/
+		 };
+
+
+
 	switch(req.url)
 	{
-		case '/powershell/sendCommand':
+		case '/sendPowershellCommand':
 			console.log(req.body);
 
-			sendCommandToComputer("req.body.command", "req.body.computers", returnResults);
+			sendManyCommandsToManyWindowsComputers(req.body.commands, req.body.computers, returnResults);
 			function returnResults(results)
 			{
-				console.log(results);
+				res.end(JSON.stringify(results));
+			}
+
+			break;
+
+		case '/sendSSHCommand':
+			console.log(req.body);
+
+			sendManyCommandsToManySSHComputers(req.body.commands, req.body.computers, returnResults);
+			function returnResults(results)
+			{
 				res.end(JSON.stringify(results));
 			}
 
 			break;
 		case '/':
-			console.log(req.body);
+			res.end(JSON.stringify(commands));
 			break;
 	}
 }
@@ -140,7 +228,9 @@ server.use(restify.bodyParser({ mapParams: false }));
 
 
 server.post('/:a', api);
-server.post('/:a/:a', api);
+server.post('/powershell/:a', api);
+
+
 
 function ready()
 {
