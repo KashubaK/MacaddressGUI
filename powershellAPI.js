@@ -201,10 +201,46 @@ function api(req, res, next)
 		case '/sendPowershellCommand':
 			console.log(req.body);
 
+
+
 			sendManyCommandsToManyWindowsComputers(req.body.commands, req.body.computers, returnResults);
 			function returnResults(results)
 			{
-				res.end(JSON.stringify(results));
+				switch(req.body.sendBack)
+				{
+					default:
+					case 'json':
+						res.end(JSON.stringify(results));
+						break;
+					case 'html':
+						res.write('<table>' + 
+							'<thead>' + 
+								'<tr>' + 
+									'<th>Computer</th>' +
+									'<th>Location</th>' +
+									'<th>Delay</th>' +
+									'<th>Command</th>' +
+									'<th>Error</th>' +
+									'<th>stdout</th>' +
+									'<th>stderr</th>' +
+								'</tr>' +
+							'</thead>' +
+							'<tbody>');
+						for (var amount = 0; amount < results.length; amount++)
+						{
+							res.write('<tr>' + 
+							'<td>' + results[amount].computer + '</td>' +
+							'<td>' + results[amount].assumedLocation + '</td>' +
+							'<td>' + results[amount].delay + '</td>' +
+							'<td>' + results[amount].command + '</td>' +
+							'<td>' + results[amount].error + '</td>' +
+							'<td>' + results[amount].stdout + '</td>' +
+							'<td>' + results[amount].stderr + '</td>' +
+							'</tr>');
+						}
+						res.end('</tbody></table>');
+						break;
+				}
 			}
 
 			break;
@@ -215,7 +251,44 @@ function api(req, res, next)
 			sendManyCommandsToManySSHComputers(req.body.commands, req.body.computers, returnResults);
 			function returnResults(results)
 			{
-				res.end(JSON.stringify(results));
+				switch(req.body.sendBack)
+				{
+					default:
+					case 'json':
+						res.end(JSON.stringify(results));
+						break;
+					case 'html':
+						res.write('<table>' + 
+							'<thead>' + 
+								'<tr>' + 
+									'<th>Computer</th>' +
+									'<th>Location</th>' +
+									'<th>Delay</th>' +
+									'<th>Command</th>' +
+									'<th>Error</th>' +
+									'<th>stdout</th>' +
+									'<th>stderr</th>' +
+								'</tr>' +
+							'</thead>' +
+							'<tbody>');
+						for (var amount = 0; amount < results.length; amount++)
+						{
+							res.write('<tr>' + 
+							'<td>' + results[amount].computer + '</td>' +
+							'<td>' + results[amount].assumedLocation + '</td>' +
+							'<td>' + results[amount].delay + '</td>' +
+							'<td>' + results[amount].command + '</td>' +
+							'<td>' + results[amount].error + '</td>' +
+							'<td>' + results[amount].stdout + '</td>' +
+							'<td>' + results[amount].stderr + '</td>' +
+							'</tr>');
+						}
+						res.end('</tbody></table>');
+						break;
+				}
+
+
+				
 			}
 
 			break;
