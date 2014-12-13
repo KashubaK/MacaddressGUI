@@ -45,8 +45,10 @@ function endTimer(label)
 }
 
 
+function magic()
+{
 
-
+}
 
 
 function sendCommandToSSHComputer(command, computerName, callback)
@@ -54,7 +56,7 @@ function sendCommandToSSHComputer(command, computerName, callback)
 	//Runs the command using powershell's invoke-command function and calls back the output. Takes a string, another string, and a callback.
 	console.log("sendCommand:runCommand:" + computerName + ":" + command);
 	startTimer(computerName + ":" + command);
-	process.exec('ssh.exe administrator@' + computerName + ' ' + command, addResultsToArray);
+	process.exec('ssh.exe -o StrictHostKeyChecking=no administrator@' + computerName + ' ' + command, addResultsToArray);
 
 
 	function addResultsToArray(error, stdout, stderr)
@@ -69,7 +71,6 @@ function sendCommandToManySSHComputers(command, computers, callback)
 	//Runs the sendCommandToSSHComputer function for each computer. Inputs a string for command, array for computers, and a callback.
 	for (var amount = 0; amount < computers.length; amount++)
 	{
-		console.log(amount + ":" + computers[amount]);
 		sendCommandToSSHComputer(command, computers[amount], collectResponses);
 	}
 
@@ -94,7 +95,6 @@ function sendManyCommandsToManySSHComputers(commands, computers, callback)
 	//Runs the sendCommandToManySSHComputers function for each command. Inputs command as an array, computers as an array, and it takes a callback.
 	for (var amount = 0; amount < commands.length; amount++)
 	{
-		console.log(amount + ":" + commands[amount]);
 		sendCommandToManySSHComputers(commands[amount], computers, collectResponses);
 	}
 
@@ -103,7 +103,11 @@ function sendManyCommandsToManySSHComputers(commands, computers, callback)
 	function collectResponses(result)
 	{
 		responsesAmt++;
-		responses.push(result);
+		for (var amount = 0; amount < result.length; amount++)
+		{
+			responses.push(result[amount]);
+		}
+		
 		console.log(responsesAmt + ":" + commands.length);
 		if (responsesAmt == commands.length)
 		{
@@ -168,7 +172,10 @@ function sendManyCommandsToManyWindowsComputers(commands, computers, callback)
 	function collectResponses(result)
 	{
 		responsesAmt++;
-		responses.push(result);
+		for (var amount = 0; amount < result.length; amount++)
+		{
+			responses.push(result[amount]);
+		}
 		console.log(responsesAmt + ":" + commands.length);
 		if (responsesAmt == commands.length)
 		{
