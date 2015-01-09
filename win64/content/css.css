@@ -1,0 +1,106 @@
+body
+{
+	background-color: #1F1F1F;
+	color: #fff;
+}
+
+
+.title
+{
+	position: absolute;
+	right: 45%;
+	top: 55px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.input
+{
+	background-color: #403A39;
+	color: #fff;
+	outline: none;
+	border: none !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.buttonsBar
+{
+	background-color: #00485F;
+
+}
+
+.btn-primary.active
+{
+	background-color: #00485F;
+}
+
+.btn
+{
+	border: none !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.inputComputers
+{
+	background-color: #00485F;
+	color: #fff;
+	outline: none;
+	border: none !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+
+.goRight
+{
+	float: right;
+	color: #000;
+}
+
+
+.alertbox
+{
+	-webkit-box-shadow: 0 0 40px -5px #000000;
+	box-shadow: 0 0 40px -5px #000000;
+	background-color: #40201F;
+	padding: 2%
+}
+
+
+.box
+{
+	-webkit-box-shadow: 0 0 40px -5px #000000;
+	box-shadow: 0 0 40px -5px #000000;
+	background-color: #403A39;
+	padding: 0%;
+	margin-bottom: 5vh;
+}
+
+
+/* tables */
+
+tr:nth-child(odd) {
+	background-color: #333;
+}
+
+
+.progress {
+	background-color: #403A39;
+	border: 0;
+}
+
+
+
+
+inputComputers::input-placeholder {
+   color: #fff;
+   text-transform: uppercase;
+}
+
+
+

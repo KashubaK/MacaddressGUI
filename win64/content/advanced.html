@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="http://bootswatch.com/yeti/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="css.css">
+		<script src="javascript.js"></script>
+
+
+	</head>
+	<body class="">
+
+	<br/><br/>
+
+	<div id="sendToWholeDistrict" class="col-md-offset-2 col-md-8 alert alert-dismissable alertbox">
+		<!-- fire alert if the OU selection is default -->
+		<strong>Are you sure about that OU?</strong>
+		<a href="#" onclick="sendOverride()" class="btn btn-default goRight">Yes, I'm sure.</a>
+		<a href="#" onclick="document.getElementById('sendToWholeDistrict').style.display='none';" class="btn btn-default goRight">No, don't send it.</a>
+	</div>
+
+
+	<div class="col-md-offset-2 col-md-8 box">
+		<div class="buttonsBar btn-group btn-group-justified">
+			<!-- big box in center -->
+				<a href="#" onclick="setPowershell()" id="powershell" class="btn btn-primary active">Powershell</a>
+				<a href="#" onclick="setSSH()" id="ssh" class="btn btn-primary">SSH</a>
+
+			<!-- ou / list button -->
+				<a href="#" onclick="setOU()" id="ouButton" class="btn btn-primary active">OU</a>
+				<a href="#" onclick="setListOfComputers()" id="listOfComputers" class="btn btn-primary">List of computers</a>
+
+				<a href="#" onclick="runOnce()" id="runOnce" class="btn btn-primary active">Run once</a>
+				<a href="#" onclick="runOnInterval()" id="runOnInterval" class="btn btn-primary">Run on interval</a>
+		</div>
+
+		<input id="ou" type="text" class="form-control inputComputers" placeholder="OU=PSD,DC=Peninsula,DC=Wednet,DC=edu">
+
+		<textarea id="computers" class="form-control inputComputers" rows="10" placeholder="ComputerA
+ComputerB
+ComputerC,ComputerD,ComputerE"></textarea>
+
+
+		<textarea class="form-control input" rows="30" id="commands" placeholder="ping google.com"></textarea>
+		<a id="send" onclick="send()" class="btn btn-primary btn-block">Send</a>
+	</div>
+
+
+	<div id="barholder" class="col-md-offset-1 col-md-10 progress" hidden>
+  		<div class="progress-bar" id="bar" style="width: 0%"></div>
+	</div>
+	<div id="results" class="col-md-offset-1 col-md-10 box" hidden>
+
+
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th>***</th>
+		      <th>Computer</th>
+		      <th>Delay</th>
+		      <th>Command</th>
+		      <th>stdout</th>
+		      <th>stderr</th>
+		    </tr>
+		  </thead>
+		  <tbody id="table">
+
+
+		  </tbody>
+		</table> 
+	</div>
+
+	</body>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/javascript.js"></script>
+</html>
