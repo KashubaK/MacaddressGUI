@@ -1,0 +1,635 @@
+[object Object]
+Authentication request received, password attempt: "No more days like PHS 2013.
+Authentication success! Allowing access.
+Function sortArray called!
+Account was created: Monday, March 03, 2014 7:59:15 AM
+Password expired? False
+Password was last set: Monday, March 03, 2014 7:59:15 AM
+User's name: Kashuba, Kyle M
+The password for this account was last entered incorrectly at: Wednesday, December 31, 2014 7:19:49 AM
+User last logged on at: Monday, December 29, 2014 9:14:11 PM
+Account enabled? True
+Email address of user: kashubak@psd401.net
+Last four of user's SSN: 8543
+User's password, if default, should be: kash8543
+Function sortArray complete!
+User belongs to groups: ["CNInterns","CNSUB-Staff"]
+User has default password.
+Reponse sent.
+Server started: Wed Dec 31 2014 10:36:24 GMT-0800 (Pacific Standard Time)
+
+
+
+Authentication request received, password attempt: "No more days like PHS 2013.
+Authentication success! Allowing access.
+Function sortArray called!
+Account was created: Monday, March 03, 2014 7:59:15 AM
+Password expired? False
+Password was last set: Monday, March 03, 2014 7:59:15 AM
+User's name: Kashuba, Kyle M
+The password for this account was last entered incorrectly at: Wednesday, December 31, 2014 7:19:49 AM
+User last logged on at: Monday, December 29, 2014 9:14:11 PM
+Account enabled? True
+Email address of user: kashubak@psd401.net
+Last four of user's SSN: 8543
+User's password, if default, should be: kash8543
+Function sortArray complete!
+User belongs to groups: ["CNInterns","CNSUB-Staff"]
+User has default password.
+Reponse sent.
+Server started: Wed Dec 31 2014 10:37:39 GMT-0800 (Pacific Standard Time)
+
+
+
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+
+Account was created: Monday, March 03, 2014 7:59:15 AM
+
+Function sortArray called!
+
+Password expired? False
+
+User's name: Kashuba, Kyle M
+
+The password for this account was last entered incorrectly at: Wednesday, December 31, 2014 7:19:49 AM
+
+User last logged on at: Monday, December 29, 2014 9:14:11 PM
+
+Account enabled? True
+
+Email address of user: kashubak@psd401.net
+L
+ast four of user's SSN: 8543
+
+User's password, if default, should be: kash8543
+
+Function sortArray complete!
+
+Password was last set: Monday, March 03, 2014 7:59:15 AM
+User belongs to groups: ["CNInterns","CNSUB-Staff"]
+User has default password.
+Reponse sent.
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+
+Function sortArray called!
+
+Account was created: Monday, March 03, 2014 7:59:15 AM
+
+Password expired? False
+
+Password was last set: Monday, March 03, 2014 7:59:15 AM
+
+User's name: Kashuba, Kyle M
+
+The password for this account was last entered incorrectly at: Wednesday, December 31, 2014 7:19:49 AM
+
+User last logged on at: Monday, December 29, 2014 9:14:11 PM
+
+Account enabled? True
+
+Email address of user: kashubak@psd401.net
+L
+ast four of user's SSN: 8543
+
+User's password, if default, should be: kash8543
+
+Function sortArray complete!
+User belongs to groups: ["CNInterns","CNSUB-Staff"]
+User has default password.
+Reponse sent.
+Server started: Wed Dec 31 2014 10:38:56 GMT-0800 (Pacific Standard Time)
+
+
+
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Account was created: Monday, March 03, 2014 7:59:15 AM
+ Password expired? False
+ Function sortArray called!
+ Password was last set: Monday, March 03, 2014 7:59:15 AM
+ User's name: Kashuba, Kyle M
+ The password for this account was last entered incorrectly at: Wednesday, December 31, 2014 7:19:49 AM
+ User last logged on at: Monday, December 29, 2014 9:14:11 PM
+ Account enabled? True
+ Email address of user: kashubak@psd401.net
+ Last four of user's SSN: 8543
+ User's password, if default, should be: kash8543
+ Function sortArray complete!
+User belongs to groups: ["CNInterns","CNSUB-Staff"]
+User has default password.
+Reponse sent.
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Function sortArray called!
+ Account was created: Monday, March 03, 2014 7:59:15 AM
+ Password expired? False
+ Password was last set: Monday, March 03, 2014 7:59:15 AM
+ User's name: Kashuba, Kyle M
+ The password for this account was last entered incorrectly at: Wednesday, December 31, 2014 7:19:49 AM
+ User last logged on at: Monday, December 29, 2014 9:14:11 PM
+ Account enabled? True
+ Email address of user: kashubak@psd401.net
+ Last four of user's SSN: 8543
+ User's password, if default, should be: kash8543
+ Function sortArray complete!
+User belongs to groups: ["CNInterns","CNSUB-Staff"]
+User has default password.
+Reponse sent.
+ Authentication success! Allowing access.
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Function sortArray called!
+ Account was created: Monday, March 03, 2014 7:59:15 AM
+ Password expired? False
+ Password was last set: Monday, March 03, 2014 7:59:15 AM
+ User's name: Kashuba, Kyle M
+ The password for this account was last entered incorrectly at: Wednesday, December 31, 2014 7:19:49 AM
+ User last logged on at: Monday, December 29, 2014 9:14:11 PM
+ Account enabled? True
+ Email address of user: kashubak@psd401.net
+ Last four of user's SSN: 8543
+ User's password, if default, should be: kash8543
+ Function sortArray complete!
+User belongs to groups: ["CNInterns","CNSUB-Staff"]
+User has default password.
+Reponse sent.
+[object Object]
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Function sortArray called!
+ Account was created: Thursday, August 11, 2011 7:52:22 AM
+ Password expired? False
+ Password was last set: Friday, June 13, 2014 12:33:19 PM
+ User's name: Martin, Brandon L
+ The password for this account was last entered incorrectly at: Sunday, December 28, 2014 1:14:27 PM
+ User last logged on at: True
+ Account enabled? martinb@psd401.net
+ Email address of user: 8074
+ Last four of user's SSN: 
+ User's password, if default, should be: mart
+ Function sortArray complete!
+User belongs to groups: ["CNPSD-StaffLocalAdmin","CNSUB-Staff","CNTSD-Techs","CNTSD-Staff","CNDomain Admins","CNUsers"]
+User does not have default password.
+Reponse sent.
+[object Object]
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Function sortArray called!
+ Account was created: Monday, March 03, 2014 7:59:15 AM
+ Password expired? False
+ Password was last set: Monday, March 03, 2014 7:59:15 AM
+ User's name: Kashuba, Kyle M
+ The password for this account was last entered incorrectly at: Wednesday, December 31, 2014 11:11:32 AM
+ User last logged on at: Monday, December 29, 2014 9:14:11 PM
+ Account enabled? True
+ Email address of user: kashubak@psd401.net
+ Last four of user's SSN: 8543
+ User's password, if default, should be: kash8543
+ Function sortArray complete!
+User belongs to groups: ["CNInterns","CNSUB-Staff"]
+Reponse sent.
+User has default password.
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Account was created: Saturday, June 02, 2012 7:34:27 PM
+ Password expired? False
+ Password was last set: Tuesday, December 23, 2014 5:57:20 AM
+ User's name: Kashuba, Kyle M
+ The password for this account was last entered incorrectly at: Monday, December 29, 2014 12:06:56 PM
+ User last logged on at: Monday, December 29, 2014 8:11:26 AM
+ Account enabled? True
+ Email address of user: 2012589@edtools.psd401.net
+ Function sortArray called!
+ Last four of user's SSN: 0608
+ User's password, if default, should be: kash0608
+ Function sortArray complete!
+User belongs to groups: ["CNPHS - GEOMETRY - Period 1A - Section 1008","CNPHS - PRE AP ENGLISH 10 - Period 4A - Section 1003","CNPHS - FRENCH 2 - Period 6A - Section 1002","CNPHS - ALGEBRA 1 - Period 2A - Section 1003","CNPHS - BIOLOGY - Period 5A - Section 1009","CNPHS - WORLD HISTORY - Period 2A - Section 1005","CNPHS - LAB SCIENCE 9 - Period 6A - Section 1003","CNPHS - LAB SCIENCE 9 - Period 6A - Section 3","CNPHS - FRENCH 2 - Period 6A - Section 2","CNPHS - WORLD HISTORY - Period 2A - Section 5","CNPHS - HEALTH - Period 3A - Section 2","CNPHS - GEOMETRY - Period 1A - Section 8","CNPHS - PRE AP ENGLISH 10 - Period 4A - Section 3","CNPHS - BIOLOGY - Period 5A - Section 9","CNPHS - ALGEBRA 1 - Period 2A - Section 3","CNPHS - COMPUTER APPS 1 - Period 5A - Section 3","CNPHS - ENGLISH 9 - Period 3A - Section 1015","CNPHS - FRENCH 1 - Period 4A - Section 1004","CNPHS - PE 9  SWIMMING - Period 1A - Section 6","CNPHS - PE 9   ACTIVITY - Period 5A - Section 9","CNPHS - ENGLISH 9 - Period 3A - Section 15","CNPHS - FRENCH 1 - Period 4A - Section 4","CNPHS - DRAWING AND PAINTING - Period 1A - Section 1","CNPHS-Students","CNKPMS-Students"]
+User has default password.
+Reponse sent.
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Function sortArray called!
+ Account was created: Saturday, June 02, 2012 12:16:25 PM
+ Password expired? False
+ Password was last set: Monday, December 22, 2014 9:54:00 PM
+ User's name: Yamamoto, Kiana A
+ The password for this account was last entered incorrectly at: Wednesday, December 31, 2014 5:30:35 AM
+ User last logged on at: True
+ Account enabled? 2011538@edtools.psd401.net
+ Email address of user: 0313
+ Last four of user's SSN: 
+ User's password, if default, should be: yama
+ Function sortArray complete!
+User belongs to groups: ["CNKMS - SCIENCE 7 - Period 6A - Section 2004","CNKMS - SCIENCE 7 - Period 6A - Section 1004","CNKMS - LANGUAGE ARTS 8 - Period 4A - Section 2007","CNKMS - LANGUAGE ARTS 8 - Period 4A - Section 1007","CNKMS - GEOMETRY - Period 2A - Section 2001","CNKMS - GEOMETRY - Period 2A - Section 1001","CNKMS - ALGEBRA 1 - Period 3A - Section 2002","CNKMS - ALGEBRA 1 - Period 3A - Section 1002","CNKMS - SPANISH 1 - Period 3A - Section 2001","CNKMS - SOCIAL STUDIES 8 - Period 1A - Section 2005","CNKMS - SOCIAL STUDIES 8 - Period 1A - Section 1005","CNKMS - BAND ADVANCED - Period 5A - Section 1001","CNKMS - BAND INTERMEDIATE - Period 1A - Section 1001","CNKMS - SPANISH 1 - Period 3A - Section 1001","CNKMS - SCIENCE 8 - Period 6A - Section 1002","CNKMS - BAND ADVANCED - Period 5A - Section 2001","CNKMS - BAND INTERMEDIATE - Period 1A - Section 2001","CNKMS - SCIENCE 8 - Period 6A - Section 2002","CNKMS - PHYS ED - Period 4A - Section 5","CNKMS - SOCIAL STUDIES 8 - Period 1A - Section 5","CNKMS - SPANISH 1 - Period 3A - Section 1","CNKMS - SCIENCE 8 - Period 6A - Section 2","CNKMS - ALGEBRA 1 - Period 3A - Section 2","CNKMS - BAND ADVANCED - Period 5A - Section 1","CNKMS - BAND INTERMEDIATE - Period 1A - Section 1","CNKMS - GEOMETRY - Period 2A - Section 1","CNKMS - LANGUAGE ARTS 8 - Period 4A - Section 7","CNKMS - SCIENCE 7 - Period 6A - Section 4","CNKMS - JAZZ BAND - Period 7A - Section 1","CNKMS - PHYS ED 7 - Period 4A - Section 2","CNKMS - WASHINGTON STATE HISTORY - Period 2A - Section 2005","CNKMS - LANGUAGE ARTS 7 - Period 5A - Section 2004","CNKMS - KOPATIME - Period 7A - Section 2017","CNKMS - WASHINGTON STATE HISTORY - Period 2A - Section 1005","CNKMS - LANGUAGE ARTS 7 - Period 5A - Section 1004","CNKMS - KOPATIME - Period 7A - Section 1017","CNKMS - KOPATIME - Period 7A - Section 17","CNKMS - FORENSICS - Period 4A - Section 4","CNKMS - LANGUAGE ARTS 7 - Period 5A - Section 4","CNKMS - SOCIAL STUDIES 7 - Period 2A - Section 5","CNGHHS-Students","CNKMS-Students"]
+User does not have default password.
+Reponse sent.
+Server started: Mon Jan 05 2015 07:07:28 GMT-0800 (Pacific Standard Time)
+
+
+
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Function sortArray called!
+ Account was created: Friday, June 06, 2014 8:47:02 AM
+ Password expired? False
+ Password was last set: Friday, June 06, 2014 8:47:02 AM
+ User's name: Fedore, Heidi M
+ The password for this account was last entered incorrectly at: Monday, January 05, 2015 9:30:32 AM
+ User last logged on at: Monday, January 05, 2015 7:12:32 AM
+ Account enabled? True
+ Email address of user: fedoreh@psd401.net
+ Last four of user's SSN: 7636
+ User's password, if default, should be: fedo7636
+ Function sortArray complete!
+User belongs to groups: ["CNKMS - Gmail Management","CNKMS-CC","CNKMS-SASI","CNKMS-HLS","CNKMS-Office","CNKMS-BusVideoViewers","CNAll Principals","CNKMS-Staff"]
+User has default password.
+Reponse sent.
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Function sortArray called!
+ Account was created: Friday, December 12, 2014 8:30:11 PM
+ Password was last set: Monday, December 22, 2014 11:37:07 PM
+ User's name: Rhoads, Ethan D
+ The password for this account was last entered incorrectly at: Monday, January 05, 2015 2:21:53 PM
+ Account enabled? 2215995@edtools.psd401.net
+ Email address of user: 1104
+ User last logged on at: True
+ Last four of user's SSN: 
+ User's password, if default, should be: rhoa
+ Function sortArray complete!
+ Password expired? False
+User belongs to groups: ["CNGMS-Students"]
+Reponse sent.
+User does not have default password.
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Function sortArray called!
+ Account was created: Friday, December 13, 2013 1:09:41 PM
+ Password expired? False
+ Password was last set: Monday, February 10, 2014 7:23:07 AM
+ User's name: Turner, Laurie L
+ The password for this account was last entered incorrectly at: Tuesday, December 30, 2014 10:59:22 AM
+ User last logged on at: Friday, January 02, 2015 6:59:23 AM
+ Account enabled? True
+ Email address of user: turnerl@psd401.net
+ Last four of user's SSN: 6803
+ User's password, if default, should be: turn6803
+ Function sortArray complete!
+User belongs to groups: ["CNSUB-Staff"]
+User has default password.
+Reponse sent.
+[object Object],[object Object]
+[object Object],[object Object],[object Object]
+[object Object],[object Object],[object Object]
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Function sortArray called!
+ User's name: Berg, Alexis J
+ Account was created: Wednesday, August 22, 2012 8:35:07 PM
+ The password for this account was last entered incorrectly at: Tuesday, January 06, 2015 5:17:24 PM
+ Password was last set: Tuesday, December 23, 2014 8:20:28 AM
+ User last logged on at: True
+ Account enabled? 2204961@edtools.psd401.net
+ Last four of user's SSN: 
+ User's password, if default, should be: berg
+ Function sortArray complete!
+ Email address of user: 1025
+ Password expired? False
+User belongs to groups: ["CNGMS - MATH 8 - Period 7A - Section 15","CNGHH - ALGEBRA 1 - Period 6A - Section 1012","CNGHH - LAB SCIENCE 9 - Period 3A - Section 1013","CNGHH - SPANISH 2 - Period 4A - Section 1001","CNGHH - PRE AP ENGLISH 9 - Period 5A - Section 1013","CNGHH - DIGITAL PHOTO 1 - Period 2A - Section 4","CNGHH - PE 9 - Period 1A - Section 1","CNGHH - WORLD CULTURES 1 - Period 2A - Section 1","CNGHH - PRE AP ENGLISH 9 - Period 5A - Section 13","CNGHH - ALGEBRA 1 - Period 6A - Section 12","CNGHH - SPANISH 2 - Period 4A - Section 1","CNGHH - LAB SCIENCE 9 - Period 3A - Section 13","CNGMS - HEALTH 8 - Period 7A - Section 1","CNGMS - SOCIAL STUDIES 8 - Period 1A - Section 15","CNGMS - ART OF MATH - Period 2A - Section 2","CNGMS - SCIENCE 8 - Period 4A - Section 13","CNGMS - MATH 8 - Period 5A - Section 17","CNGMS - LANGUAGE ARTS 8 - Period 6A - Section 2004","CNGMS - SPANISH 1 - Period 3A - Section 2001","CNGMS - SCIENCE 8 - Period 1A - Section 6","CNGMS - LANGUAGE ARTS 8 - Period 6A - Section 1004","CNGMS - SOCIAL STUDIES 8 - Period 5A - Section 6","CNGMS - SPANISH 1 - Period 3A - Section 1001","CNGMS - WHO ARE YOU HOW GET HERE - Period 2A - Section 2","CNGMS - MATH SUPPORT 8 - Period 4A - Section 4","CNGMS - SCIENCE 8 - Period 4A - Section 3","CNGMS - MATH SUPPORT 8 - Period 1A - Section 1","CNGMS - MATH 8 - Period 7A - Section 12","CNGMS - SOCIAL STUDIES 8 - Period 5A - Section 1","CNGMS - CURRENT EVENTS - Period 2A - Section 4","CNGMS - LANGUAGE ARTS 8 - Period 6A - Section 4","CNGMS - SPANISH 1 - Period 3A - Section 1","CNGMS-Students","CNGHHS-Students"]
+User does not have default password.
+Reponse sent.
+ Authentication request received, password attempt: "
+ Authentication failure. Denying access.
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Function sortArray called!
+ Account was created: Monday, March 03, 2014 7:59:15 AM
+ Password expired? False
+ Password was last set: Monday, March 03, 2014 7:59:15 AM
+ User's name: Kashuba, Kyle M
+ The password for this account was last entered incorrectly at: Wednesday, December 31, 2014 7:20:23 AM
+ User last logged on at: Monday, December 29, 2014 9:14:11 PM
+ Account enabled? True
+ Email address of user: kashubak@psd401.net
+ Last four of user's SSN: 8543
+ User's password, if default, should be: kash8543
+ Function sortArray complete!
+User belongs to groups: ["CNInterns","CNSUB-Staff"]
+User has default password.
+Reponse sent.
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Function sortArray called!
+ Account was created: Monday, March 03, 2014 7:59:15 AM
+ Password expired? False
+ Password was last set: Monday, March 03, 2014 7:59:15 AM
+ User's name: Kashuba, Kyle M
+ The password for this account was last entered incorrectly at: Wednesday, December 31, 2014 7:20:23 AM
+ Account enabled? True
+ User last logged on at: Monday, December 29, 2014 9:14:11 PM
+ Email address of user: kashubak@psd401.net
+ User's password, if default, should be: kash8543
+ Last four of user's SSN: 8543
+ Function sortArray complete!
+User belongs to groups: ["CNInterns","CNSUB-Staff"]
+User has default password.
+Reponse sent.
+ Authentication success! Allowing access.
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Function sortArray called!
+ Account was created: Monday, March 03, 2014 7:59:15 AM
+ Password was last set: Monday, March 03, 2014 7:59:15 AM
+ User's name: Kashuba, Kyle M
+ The password for this account was last entered incorrectly at: Wednesday, December 31, 2014 7:20:23 AM
+ Email address of user: kashubak@psd401.net
+ User last logged on at: Monday, December 29, 2014 9:14:11 PM
+ Function sortArray complete!
+ Last four of user's SSN: 8543
+ User's password, if default, should be: kash8543
+ Password expired? False
+ Account enabled? True
+User belongs to groups: ["CNInterns","CNSUB-Staff"]
+User has default password.
+Reponse sent.
+[object Object]
+[object Object]
+[object Object]
+[object Object],[object Object]
+[object Object],[object Object]
+ Authentication request received, password attempt: "5
+ Authentication failure. Denying access.
+[object Object],[object Object]
+[object Object],[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Function sortArray called!
+ Account was created: Friday, December 13, 2013 1:09:41 PM
+ Password expired? False
+ Password was last set: Monday, February 10, 2014 7:23:07 AM
+ User's name: Turner, Laurie L
+ The password for this account was last entered incorrectly at: Tuesday, December 30, 2014 10:59:22 AM
+ User last logged on at: Friday, January 02, 2015 6:59:23 AM
+ Account enabled? True
+ Email address of user: turnerl@psd401.net
+ Last four of user's SSN: 6803
+ User's password, if default, should be: turn6803
+ Function sortArray complete!
+User belongs to groups: ["CNSUB-Staff"]
+User has default password.
+Reponse sent.
+[object Object]
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+Server started: Mon Jan 12 2015 14:18:06 GMT-0800 (Pacific Standard Time)
+
+
+
+Server started: Mon Jan 12 2015 14:29:56 GMT-0800 (Pacific Standard Time)
+
+
+
+Server started: Tue Jan 13 2015 07:04:30 GMT-0800 (Pacific Standard Time)
+
+
+
+[object Object]
+[object Object],[object Object]
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+Server started: Tue Jan 13 2015 14:52:18 GMT-0800 (Pacific Standard Time)
+
+
+
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Function sortArray called!
+ Account was created: Monday, March 03, 2014 7:59:15 AM
+ Password expired? False
+ Password was last set: Monday, March 03, 2014 7:59:15 AM
+ User's name: Kashuba, Kyle M
+ The password for this account was last entered incorrectly at: Wednesday, December 31, 2014 11:11:32 AM
+ User last logged on at: Saturday, January 10, 2015 12:03:39 AM
+ Account enabled? True
+ Email address of user: kashubak@psd401.net
+ Last four of user's SSN: 8543
+ User's password, if default, should be: kash8543
+ Function sortArray complete!
+User belongs to groups: ["CNInterns","CNSUB-Staff"]
+User has default password.
+Reponse sent.
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+[object Object],[object Object],[object Object]
+[object Object],[object Object],[object Object]
+[object Object],[object Object],[object Object]
+[object Object],[object Object],[object Object]
+ Authentication request received, password attempt: "No more days like PHS 2013.
+ Authentication success! Allowing access.
+ Function sortArray called!
+ Password expired? False
+ Account was created: Friday, June 06, 2014 8:47:02 AM
+ User's name: Fedore, Heidi M
+ The password for this account was last entered incorrectly at: Monday, January 05, 2015 9:33:20 AM
+ User last logged on at: Monday, January 05, 2015 7:12:32 AM
+ Account enabled? True
+ Email address of user: fedoreh@psd401.net
+ User's password, if default, should be: fedo7636
+ Function sortArray complete!
+ Last four of user's SSN: 7636
+ Password was last set: Friday, June 06, 2014 8:47:02 AM
+User belongs to groups: ["CNKMS - Gmail Management","CNKMS-CC","CNKMS-SASI","CNKMS-HLS","CNKMS-Office","CNKMS-BusVideoViewers","CNAll Principals","CNKMS-Staff"]
+User has default password.
+Reponse sent.
+[object Object],[object Object]
+[object Object],[object Object],[object Object]
+[object Object]
+Server started: Thu Jan 15 2015 06:50:07 GMT-0800 (Pacific Standard Time)
+
+
+
+[object Object]
+Server started: Thu Jan 15 2015 06:52:13 GMT-0800 (Pacific Standard Time)
+
+
+
+[object Object]
+Server started: Thu Jan 15 2015 06:53:35 GMT-0800 (Pacific Standard Time)
+
+
+
+[object Object]
+Server started: Thu Jan 15 2015 06:55:38 GMT-0800 (Pacific Standard Time)
+
+
+
+[object Object]
+Server started: Thu Jan 15 2015 06:57:11 GMT-0800 (Pacific Standard Time)
+
+
+
+[object Object]
+Server started: Thu Jan 15 2015 06:58:45 GMT-0800 (Pacific Standard Time)
+
+
+
+[object Object]
+[object Object]
+Server started: Thu Jan 15 2015 07:00:21 GMT-0800 (Pacific Standard Time)
+
+
+
+[object Object]
+[object Object]
+[object Object]
+[object Object]
+Server started: Thu Jan 15 2015 15:53:16 GMT-0800 (Pacific Standard Time)
+
+
+
+TypeError: Cannot call method 'indexOf' of null
+TypeError: Cannot call method 'indexOf' of null
+TypeError: Cannot call method 'indexOf' of null
+TypeError: Cannot call method 'indexOf' of null
+TypeError: Cannot call method 'indexOf' of null
+TypeError: Cannot call method 'indexOf' of null
+TypeError: Cannot call method 'indexOf' of null
+TypeError: Cannot call method 'indexOf' of null
+TypeError: Cannot call method 'indexOf' of null
+TypeError: Cannot call method 'indexOf' of null
+TypeError: Cannot call method 'indexOf' of null
+[object Object]
+[object Object]
+Server started: Fri Jan 16 2015 15:30:56 GMT-0800 (Pacific Standard Time)
+
+
+
+[object Object],[object Object]
