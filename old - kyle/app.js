@@ -4,7 +4,7 @@ var process = require('child_process');
 var async = require('async');
 var fs = require('fs'); 
 var socket = require('socket.io');
-var edge = require('edge');
+//var edge = require('edge');
 //create server
 var server = restify.createServer();
 server.use(restify.bodyParser({ mapParams: false }));
@@ -26,14 +26,22 @@ function log(data, bug) {
 	
 }
 
-var enterPS = edge.func('ps', function () {/*
-	  $ma = $inputFromJS
-	  $spwd = ConvertTo-SecureString -AsPlainText $ma -Force
-	  New-ADUser -Name $ma -Path "OU=Stu_Test,DC=Peninsula,DC=wednet,DC=edu" -AccountPassword $spwd -enable $true -DisplayName $ma -GivenName $ma -SamAccountName $ma -UserPrincipalName $ma
-	  Set-ADUser -Identity $ma -PasswordNeverExpires $true
-	  Add-ADGroupMember -Identity “CN=psd-secure,OU=Stu_Test,DC=Peninsula,DC=wednet,DC=edu” -member $ma
-	  Write-Host "Mac address: $ma - Success! :)"
-*/});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //give the interface
 server.get('/', function (req, res) {
