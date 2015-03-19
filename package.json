@@ -1,0 +1,19 @@
+{
+  "name": "powershellAPI",
+  "version": "0.0.32",
+  "description": "API for powershell tasks.",
+  "main": "source/main.js",
+  "repository": 
+  {
+    "type": "git",
+    "url": "git@github.com:psd401/PowershellAPI.git"
+  },
+  "dependencies": 
+  {
+    "restify": "2.8.3",
+    "restify-cookies": "0.1.1"
+  },
+  "author": "Darren C. & Kyle K.",
+  "license": "",
+  "homepage": "https://github.com/psd401/PowershellAPI"
+}
