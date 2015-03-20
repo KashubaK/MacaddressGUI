@@ -1,17 +1,26 @@
-//Reusable code goes here.
+var process = require('child_process');
+
 
 module.exports = 
 {
-	'timer':
-	{
-		'start': startTimer,
-		'poll':  pollTimer,
-		'end':   endTimer
-	},
+    timer:
+    {
+        start: startTimer,
+        poll:  pollTimer,
+        end:   endTimer
+    },
 
-	'log': log
+    //logging / errors
+    log: log,
 
-	//'windowsCommand': function (commands, computers, callback)sendManyCommandsToManyWindowsComputers
+    //Makes sure data is of the right input type.
+    sanitize: sanitize,
+
+    //Uses invoke-command to send a command to a remote windows device.
+    windowsCommand: function (computers, commands, callback)
+    {
+        return sendCommandsToWindows(computers, commands, callback);
+    }
 }
 
 
@@ -21,27 +30,27 @@ module.exports =
 
 function log(severity, info)
 {
-	console.log(severity + ': ' + error);
+    console.log(severity + ': ' + error);
 }
 
 
 var times = [];
 function startTimer(label)
 {
-	//Adds the time in unix time to the timer array.
-	times[label] = (new Date).getTime();
+    //Adds the time in unix time to the timer array.
+    times[label] = (new Date).getTime();
 }
 function pollTimer(label)
 {
-	//Returns the amount of time since the timer was created (in ms).
-	return (new Date).getTime() - times[label];
+    //Returns the amount of time since the timer was created (in ms).
+    return (new Date).getTime() - times[label];
 }
 function endTimer(label)
 {
-	//Returns the amount of time since the timer was created (in ms). Also removes the label from the timer array so that it may be used again.
-	var oldTime = times[label];
-	delete times[label];
-	return (new Date).getTime() - oldTime; 
+    //Returns the amount of time since the timer was created (in ms). Also removes the label from the timer array so that it may be used again.
+    var oldTime = times[label];
+    delete times[label];
+    return (new Date).getTime() - oldTime; 
 }
 
 
@@ -50,78 +59,114 @@ function endTimer(label)
 == Windows command sending ==
 ===========================*/
 
-
-function sendCommandToWindowsComputer(command, computerName, callback)
+function psRunOnComputer(computerName, command, callback)
 {
-	//Runs the command using powershell's invoke-command function and calls back the output. Takes a string, another string, and a callback.
-                                                                                                                                                                                                                                                                                                                                                  
-	console.log("Sent command " + command + " to " + computerName);
-	startTimer (computerName + ":" + command);
+    console.log(computerName);
+    //Runs the command using powershell's invoke-command function and calls back the output. Takes a string, another string, and a callback.
+    startTimer (computerName + ":" + command);
+    var params = 
+    [
+        "invoke-command -computername " + computerName + " -ScriptBlock {" + command + "}"
+    ]
 
-
-	var params = 
-	[
- 		"invoke-command -computername " + computerName + " -ScriptBlock {" + command + "}"
-	]
-
-	process.execFile('powershell.exe', params, addResultsToArray);
-
-
-	function addResultsToArray(error, stdout, stderr)
-	{
-		console.log("Got command " + command + " back from " + computerName);
-
-		callback({ "computer": computerName, "assumedLocation": computerName.substring(2,5), "delay": endTimer(computerName + ":" + command), "command": command, "error": error, "stdout": stdout, "stderr": stderr });
-	}
+    process.execFile('powershell.exe', params, addResultsToArray);
+    function addResultsToArray(error, stdout, stderr)
+    {
+        if (computerName.length > 4)
+        {
+            console.log(computerName);
+            var data = 
+            {
+                "computer":         computerName, 
+                "assumedLocation":  computerName.substring(2,5), 
+                "delay":            endTimer(computerName + ":" + command), 
+                "command":          command, 
+                "error":            error, 
+                "stdout":           stdout, 
+                "stderr":           stderr 
+            }
+        }else
+        {
+            console.log(computerName);
+            var data = 
+            {
+                "computer":         computerName, 
+                "assumedLocation":  null, 
+                "delay":            endTimer(computerName + ":" + command), 
+                "command":          command, 
+                "error":            error, 
+                "stdout":           stdout, 
+                "stderr":           stderr 
+            }
+        }
+        
+        callback(data);
+    }
 }
 
-function sendCommandToManyWindowsComputers(command, computers, callback)
+function sendCommandsToWindows(computers, commands, callback)
 {
-	//Runs the sendCommandToWindowsComputer function for each computer. Inputs a string for command, array for computers, and a callback.
-	for (var amount = 0; amount < computers.length; amount++)
-	{
-		console.log(amount + ":" + computers[amount]);
-		sendCommandToWindowsComputer(command, computers[amount], collectResponses);
-	}
+    //Send requested command to each computer.
+    for (var alpha in computers)
+    {
+        for (var beta in commands)
+        {
+            psRunOnComputer(computers[alpha], commands[beta], collectResponses);
+        }
+    }
 
-	var responses = [];
-	var responsesAmt = 0;
-	function collectResponses(result)
-	{
-		responsesAmt++;
-		responses.push(result);
-		console.log(responsesAmt + ":" + computers.length);
-		if (responsesAmt == computers.length)
-		{
-			callback(responses);
-		}
-	}
+    //Collect all of the responses, and callback with data when done.
+    var responses    = [];
+    var responsesAmt = 0;
+    function collectResponses(data)
+    {
+        responsesAmt++;
+        responses.push(data);
+        if (responsesAmt == computers.length * commands.length)
+        {
+            callback(responses);
+        }
+    }
 }
 
 
 
-function sendManyCommandsToManyWindowsComputers(commands, computers, callback)
-{
-	//Runs the sendCommandToManyWindowsComputers function for each command. Inputs command as an array, computers as an array, and it takes a callback.
-	for (var amount = 0; amount < commands.length; amount++)
-	{
-		console.log(amount + ":" + commands[amount]);
-		sendCommandToManyWindowsComputers(commands[amount], computers, collectResponses);
-	}
 
-	var responses = [];
-	var responsesAmt = 0;
-	function collectResponses(result)
-	{
-		responsesAmt++;
-		for (var amount = 0; amount < result.length; amount++)
-		{
-			responses.push(result[amount]);
-		}
-		console.log(responsesAmt + ":" + commands.length);
-		if (responsesAmt == commands.length)
-		{
-			callback(responses);
-		}
-	}
+
+
+
+function sanitize(input, type)
+{
+    if (typeof input !== type)
+    {
+        throw new Error('Got ' + typeof input + ', need ' + type + '. Are you missing an input?');
+    }
+
+    switch (typeof input)
+    {
+        case 'number':
+            return input;
+            break;
+        case 'string':
+            return clean(input);
+            break;
+        case 'object':
+            for (var key in input)
+            {
+                input[key] = sanitize(input[key], typeof input[key]);
+            }
+            return input;
+            break;
+        default:
+            throw new Error('Input must be a ' + type);
+            return;
+    }
+
+    function clean(input)
+    {
+        return input.replace(/([^A-Za-z0-9._-])/g, '');
+    }
 }
+
+
+

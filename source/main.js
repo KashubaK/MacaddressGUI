@@ -55,11 +55,11 @@ function startListening()
     https.use(cookies.parse);
 
     //app interface
-    api.api(http);
+    //api.api(http);
     api.api(https);
 
     //graphical interface
-    gui.gui(http);
+    //gui.gui(http);
     gui.gui(https);
 
     //Start listening.

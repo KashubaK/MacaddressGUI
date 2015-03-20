@@ -1,4 +1,4 @@
 {
-	"key":         "",
-	"certificate": ""
+	"key":         "/config/server.key",
+	"certificate": "/config/server.crt"
 }
