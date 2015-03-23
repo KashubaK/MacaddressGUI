@@ -225,7 +225,7 @@ server.post('/network/addmac', function (req, res) {
 
 			if (address.valid) {
 				//console.log('ps ' +fs.readFileSync('C:/Users/serv_datascript/Desktop/New-MacAddress.ps1'));
-					process.exec('powershell.exe C:/Users/serv_datascript/Desktop/New-MacAddress.ps1 ' +address.address, function setResponse (err, stdout, stderr) {
+					process.exec('powershell.exe C:/Users/serv_datascript/Desktop/New-MacAddress.ps1 ' + address.address, function setResponse (err, stdout, stderr) {
 					if (stdout.indexOf('Already') == -1) {
 						address.added = true; //did get added
 						address.note = 'Success!'; //set note as powershell output for client handling
