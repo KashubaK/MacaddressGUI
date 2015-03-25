@@ -55,6 +55,18 @@ function api(webserver)
         }
     }
 
+    function removeMacAddress(req, res, next)
+    {
+        var macAddresses = run.sanitize(req.body.macAddresses, 'object');
+
+        run.removeMacAddress(macAddresses, returnResult);
+        function returnResult(data)
+        {
+            res.writeHead(200);
+            res.end(JSON.stringify(data));
+        }
+    }
+
     webserver.post('/',                       index);
     webserver.post('/windows/command',        sendWindowsCommand);
     webserver.post('/windows/script',         sendWindowsScript);

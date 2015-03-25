@@ -30,6 +30,11 @@ module.exports =
     insertMacAddress: function (macAddresses, callback)
     {
         return insertMacAddress(macAddresses, callback);
+    },
+
+    removeMacAddress: function (macAddresses, callback)
+    {
+        return removeMacAddress(macAddresses, callback);
     }
 }
 
@@ -40,7 +45,19 @@ module.exports =
 
 function log(severity, info)
 {
-    console.log(severity + ': ' + error);
+    sanitize(severity, 'number');
+    switch (severity)
+    {
+        case 2:
+            console.log('INFO: ' + info);
+            break;
+        case 1:
+            console.log('WARNING: ' + info);
+            break;
+        case 0:
+            console.log('DANGER: ' + info);
+            break;
+    }
 }
 
 
@@ -169,13 +186,56 @@ function psRunCommandOnLocal(command, callback)
         {
             "computer":         'localhost', 
             "assumedLocation":  'localhost', 
-            "delay":            endTimer('localhost' + ":" + command), 
+            "delay":            pollTimer('localhost' + ":" + command), 
             "command":          command, 
             "error":            error, 
             "stdout":           stdout, 
             "stderr":           stderr 
-        }        
+        }
+
+        log(2, endTimer('localhost' + ":" + command) + 'ms | ' + command);
         callback(data);
+    }
+}
+
+function psRunCommandsOnLocal(commands, callback)
+{
+    for (var i in commands)
+    {
+        psRunCommandOnLocal(commands[i], collectResponses);
+    }
+
+    var responses    = [];
+    var responsesAmt = 0;
+    function collectResponses(data)
+    {
+        responsesAmt++;
+        responses.push(data);
+        if (responsesAmt == commands.length)
+        {
+            callback(responses);
+        }
+    }
+}
+
+function psRunCommandsSequentiallyOnLocal(commands, callback)
+{
+    //Runs each command sequentially, for cases where you must not anger active directory.
+    psRunCommandOnLocal(commands[0], collectResponses);
+
+    var responses    = [];
+    var responsesAmt = 0;
+    function collectResponses(data)
+    {
+        responsesAmt++;
+        responses.push(data);
+        if (responsesAmt == commands.length)
+        {
+            callback(responses);
+        }else
+        {
+            psRunCommandOnLocal(commands[responsesAmt], collectResponses);
+        }
     }
 }
 
@@ -295,9 +355,38 @@ function sendScriptsToWindows(computers, scripts, callback)
 
 function insertMacAddress(macAddresses, callback)
 {
+    //Has issues with the command not running sequentially.
     for (var i in macAddresses)
     {
-        psRunCommandOnLocal("New-ADUser -Name " + macAddresses[i] + " -Path 'OU=MAC Address Database,DC=Peninsula,DC=wednet,DC=edu'", collectResponses);
+        //Create & enable the AD user with a valid password, and add it to the psd-secure group.
+        var commands = 
+        [
+            "New-ADUser -Name " + macAddresses[i] + " -Path 'OU=MAC Address Database,DC=Peninsula,DC=wednet,DC=edu' -AccountPassword (ConvertTo-SecureString -AsPlainText " + macAddresses[i] + " -Force) -enable $true -DisplayName " + macAddresses[i] + " -GivenName " + macAddresses[i] + " -SamAccountName " + macAddresses[i] + " -UserPrincipalName " + macAddresses[i],
+            "Set-ADUser -Identity " + macAddresses[i] + " -PasswordNeverExpires $true",
+            "Add-ADGroupMember -Identity “CN=psd-secure,OU=MAC Address Database,DC=Peninsula,DC=wednet,DC=edu” -member " + macAddresses[i]
+        ]
+        psRunCommandsSequentiallyOnLocal(commands, collectResponses);
+    }
+
+    var responses    = [];
+    var responsesAmt = 0;
+    function collectResponses(data)
+    {
+        responsesAmt++;
+        responses.push(data);
+        if (responsesAmt == macAddresses.length)
+        {
+            callback(responses);
+        }
+    }
+}
+
+
+function removeMacAddress(macAddresses, callback)
+{
+    for (var i in macAddresses)
+    {
+        psRunCommandOnLocal("Remove-ADUser -Identity " + macAddresses[i] + " -Path 'OU=MAC Address Database,DC=Peninsula,DC=wednet,DC=edu'", collectResponses);
     }
 
     var responses    = [];
