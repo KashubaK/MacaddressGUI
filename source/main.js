@@ -1,10 +1,11 @@
-var restify = require('restify');
-var cookies = require('restify-cookies');
-var fs      = require('fs');
-var config  = [];
+var restify  = require('restify');
+var cookies  = require('restify-cookies');
+var fs       = require('fs');
+var socketio = require('socket.io');
+var config   = [];
 
-var api     = require('./api.js');
-var gui     = require('./gui.js');
+var api      = require('./api.js');
+var gui      = require('./gui.js');
 
 
 
@@ -54,13 +55,16 @@ function startListening()
     http.use(cookies.parse);
     https.use(cookies.parse);
 
+    https.use(restify.queryParser());
+
     //app interface
     //api.api(http);
     api.api(https);
 
     //graphical interface
     //gui.gui(http);
-    gui.gui(https);
+    //Https is the restify webserver, socketio.listen is socketio.
+    gui.gui(https, socketio.listen(https));
 
     //Start listening.
     http.listen(80);

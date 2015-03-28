@@ -22,19 +22,26 @@ module.exports =
         return sendCommandsToWindows(computers, commands, callback);
     },
 
+
     windowsScript: function (computers, commands, callback)
     {
         return sendScriptsToWindows(computers, commands, callback);
     },
 
-    insertMacAddress: function (macAddresses, callback)
-    {
-        return insertMacAddress(macAddresses, callback);
-    },
+    //Takes an array of mac addresses, and returns a callback with boolen values in arrays.
+    /*
+        Example return of the insert mac addresses function:
 
-    removeMacAddress: function (macAddresses, callback)
+        To be done friday.
+
+
+
+
+
+    */
+    insertMacAddress: function (macAddresses, update, callback)
     {
-        return removeMacAddress(macAddresses, callback);
+        return insertMacAddress(macAddresses, update, callback);
     }
 }
 
@@ -125,10 +132,8 @@ function sanitize(input, type)
 
 function psRunCommandOnComputer(computerName, command, callback)
 {
-    console.log(computerName);
     //Runs the command using powershell's invoke-command function and calls back the output. Takes a string, another string, and a callback.
     startTimer(computerName + ":" + command);
-    console.log(command);
     var params = 
     [
         "invoke-command -computername " + computerName + " -ScriptBlock {" + command + "}"
@@ -139,7 +144,6 @@ function psRunCommandOnComputer(computerName, command, callback)
     {
         if (computerName.length > 4)
         {
-            console.log(computerName);
             var data = 
             {
                 "computer":         computerName, 
@@ -152,7 +156,6 @@ function psRunCommandOnComputer(computerName, command, callback)
             }
         }else
         {
-            console.log(computerName);
             var data = 
             {
                 "computer":         computerName, 
@@ -164,7 +167,7 @@ function psRunCommandOnComputer(computerName, command, callback)
                 "stderr":           stderr 
             }
         }
-        
+
         callback(data);
     }
 }
@@ -227,6 +230,7 @@ function psRunCommandsSequentiallyOnLocal(commands, callback)
     var responsesAmt = 0;
     function collectResponses(data)
     {
+
         responsesAmt++;
         responses.push(data);
         if (responsesAmt == commands.length)
@@ -353,7 +357,7 @@ function sendScriptsToWindows(computers, scripts, callback)
 ===========================*/
 
 
-function insertMacAddress(macAddresses, callback)
+function insertMacAddress(macAddresses, update, callback)
 {
     //Has issues with the command not running sequentially.
     for (var i in macAddresses)
@@ -372,29 +376,60 @@ function insertMacAddress(macAddresses, callback)
     var responsesAmt = 0;
     function collectResponses(data)
     {
-        responsesAmt++;
-        responses.push(data);
-        if (responsesAmt == macAddresses.length)
+        var successCount = 0;
+        for (var i in data)
         {
-            callback(responses);
+            console.log(i + ':' + ( data.length - 1));
+            if (data[i].error == null && data[i].stderr == "")
+            {
+                successCount++;
+            }
+
+            if (successCount == data.length && i == (data.length - 1))
+            {
+                var macAddress = data[2].command.substring(data[2].command.length - 12);
+                
+                update(responses.push({ macAddress: macAddress, success: true }));
+                responses.push({ macAddress: macAddress, success: true });
+                responsesAmt++;
+
+            }
+
+            if (successCount != data.length && i == (data.length - 1)) //data.length 1 too big?
+            {
+                var macAddress = data[2].command.substring(data[2].command.length - 12);
+
+                //Find the first error that occurs.
+
+                var error = null;
+                for (var i in data)
+                {
+                    if (data[i].stderr != "")
+                    {
+                        error = data[i].stderr;
+                        break;
+                    }
+                }
+
+                if (error == null)
+                {
+                    for (var i in data)
+                    {
+                        if (data[i].error)
+                        {
+                            error = data[i].error;
+                            break;
+                        }
+                    }
+                }
+
+                update({ macAddress: macAddress, success: false, error: error });
+                responses.push({ macAddress: macAddress, success: false, error: error });
+                responsesAmt++;
+            }
         }
-    }
-}
 
 
-function removeMacAddress(macAddresses, callback)
-{
-    for (var i in macAddresses)
-    {
-        psRunCommandOnLocal("Remove-ADUser -Identity " + macAddresses[i] + " -Path 'OU=MAC Address Database,DC=Peninsula,DC=wednet,DC=edu'", collectResponses);
-    }
-
-    var responses    = [];
-    var responsesAmt = 0;
-    function collectResponses(data)
-    {
-        responsesAmt++;
-        responses.push(data);
         if (responsesAmt == macAddresses.length)
         {
             callback(responses);

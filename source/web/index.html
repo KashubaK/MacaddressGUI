@@ -1,0 +1,26 @@
+<!doctype html>
+<head>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/javascript.js"></script>
+	<link rel="stylesheet" type="text/css" href="css.css">
+
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	Enter mac addresses you want put in below. Separate each one with a newline.
+	Kyle is going to make this look pretty the next time he comes in.
+	<br/>
+	<textarea id="macAddresses" autofocus rows="5" cols="50"></textarea>
+	<br/>
+	<a href="#" id="send" onclick="addMacAddresses()" class="btn btn-default">Send</a>
+
+	<div id="macAddressesResults">
+	</div>
+</body>

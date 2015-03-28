@@ -47,19 +47,13 @@ function api(webserver)
     {
         var macAddresses = run.sanitize(req.body.macAddresses, 'object');
 
-        run.insertMacAddress(macAddresses, returnResult);
-        function returnResult(data)
+        run.insertMacAddress(macAddresses, update, returnResult);
+
+        function update(data)
         {
-            res.writeHead(200);
-            res.end(JSON.stringify(data));
+
         }
-    }
 
-    function removeMacAddress(req, res, next)
-    {
-        var macAddresses = run.sanitize(req.body.macAddresses, 'object');
-
-        run.removeMacAddress(macAddresses, returnResult);
         function returnResult(data)
         {
             res.writeHead(200);
