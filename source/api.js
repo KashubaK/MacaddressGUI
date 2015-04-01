@@ -65,5 +65,5 @@ function api(webserver)
     webserver.post('/windows/command',        sendWindowsCommand);
     webserver.post('/windows/script',         sendWindowsScript);
 
-    webserver.post('/addMacAddress',          addMacAddress);
+    webserver.post('/network/addMac',          addMacAddress);
 }

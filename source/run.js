@@ -28,17 +28,6 @@ module.exports =
         return sendScriptsToWindows(computers, commands, callback);
     },
 
-    //Takes an array of mac addresses, and returns a callback with boolen values in arrays.
-    /*
-        Example return of the insert mac addresses function:
-
-        To be done friday.
-
-
-
-
-
-    */
     insertMacAddress: function (macAddresses, update, callback)
     {
         return insertMacAddress(macAddresses, update, callback);
@@ -300,7 +289,7 @@ function sendCommandsToWindows(computers, commands, callback)
                 psRunCommandOnLocal(commands[beta], collectResponses);
             }else
             {
-                psRunScriptOnComputer(computers[alpha], commands[beta], collectResponses);
+                psRunCommandOnComputer(computers[alpha], commands[beta], collectResponses);
             }
         }
     }
@@ -359,10 +348,21 @@ function sendScriptsToWindows(computers, scripts, callback)
 
 function insertMacAddress(macAddresses, update, callback)
 {
+    var responses    = [];
+    var responsesAmt = 0;
+
     //Has issues with the command not running sequentially.
     for (var i in macAddresses)
     {
         //Create & enable the AD user with a valid password, and add it to the psd-secure group.
+
+        if (macAddresses[i].length != 12)
+        {
+            update({ macAddress: macAddresses[i], success: false, error: "That's not a mac address!"});
+            responses.push({ macAddress: macAddresses[i], success: false, error: "That's not a mac address!"});
+            continue;
+        }
+
         var commands = 
         [
             "New-ADUser -Name " + macAddresses[i] + " -Path 'OU=MAC Address Database,DC=Peninsula,DC=wednet,DC=edu' -AccountPassword (ConvertTo-SecureString -AsPlainText " + macAddresses[i] + " -Force) -enable $true -DisplayName " + macAddresses[i] + " -GivenName " + macAddresses[i] + " -SamAccountName " + macAddresses[i] + " -UserPrincipalName " + macAddresses[i],
@@ -372,8 +372,6 @@ function insertMacAddress(macAddresses, update, callback)
         psRunCommandsSequentiallyOnLocal(commands, collectResponses);
     }
 
-    var responses    = [];
-    var responsesAmt = 0;
     function collectResponses(data)
     {
         var successCount = 0;
@@ -436,3 +434,15 @@ function insertMacAddress(macAddresses, update, callback)
         }
     }
 }
+
+
+
+/*===========================
+==          OUS           ==
+===========================*/
+
+/*
+function getOUs(callback)
+{
+    psRunCommandsOnLocal()
+}*/
