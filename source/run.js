@@ -389,7 +389,7 @@ function insertMacAddress(macAddresses, update, callback)
             {
                 var macAddress = data[2].command.substring(data[2].command.length - 12);
                 
-                update(responses.push({ macAddress: macAddress, success: true }));
+                update({ macAddress: macAddress, success: true });
                 responses.push({ macAddress: macAddress, success: true });
                 responsesAmt++;
 
