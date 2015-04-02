@@ -6,6 +6,7 @@ var config   = [];
 
 var api      = require('./api.js');
 var gui      = require('./gui.js');
+var ssh      = require('./ssh.js');
 
 
 
@@ -66,9 +67,13 @@ function startListening()
     //Https is the restify webserver, socketio.listen is socketio.
     gui.gui(https, socketio.listen(https));
 
-    //Start listening.
-    http.listen(80);
+    //Start http listening.
+    //http.listen(80);
     https.listen(443);
+
+
+    //Start ssh listening
+    ssh.server(config['https'].key);
 
     console.log('powershellAPI 0.0.31 initialized at ' + new Date);
 }

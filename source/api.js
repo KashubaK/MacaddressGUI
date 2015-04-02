@@ -43,6 +43,20 @@ function api(webserver)
     }
 
 
+    function sendUnixCommand(req, res, next)
+    {
+       // var computers = run.sanitize(req.body.computers, 'object');
+       // var commands  = run.sanitize(req.body.commands,  'object');
+
+        run.unixCommand(req.body.computers, req.body.commands, returnResult);
+        function returnResult(data)
+        {
+            res.writeHead(200);
+            res.end(JSON.stringify(data));
+        }
+    }
+
+
     function addMacAddress(req, res, next)
     {
         var macAddresses = run.sanitize(req.body.macAddresses, 'object');
@@ -65,5 +79,8 @@ function api(webserver)
     webserver.post('/windows/command',        sendWindowsCommand);
     webserver.post('/windows/script',         sendWindowsScript);
 
-    webserver.post('/network/addMac',          addMacAddress);
+    webserver.post('/unix/command',           sendUnixCommand);
+    //webserver.post('/unix/batch',             sendUnixScript);
+
+    webserver.post('/network/addmac',          addMacAddress);
 }

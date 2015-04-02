@@ -1,5 +1,5 @@
 var process = require('child_process');
-
+var ssh     = require('ssh2').Client;
 
 module.exports = 
 {
@@ -22,11 +22,16 @@ module.exports =
         return sendCommandsToWindows(computers, commands, callback);
     },
 
-
     windowsScript: function (computers, commands, callback)
     {
         return sendScriptsToWindows(computers, commands, callback);
     },
+
+    unixCommand: function (computers, commands, callback)
+    {
+        return sendCommandToUnix(computers, commands, callback);
+    },
+
 
     insertMacAddress: function (macAddresses, update, callback)
     {
@@ -434,6 +439,31 @@ function insertMacAddress(macAddresses, update, callback)
         }
     }
 }
+
+
+/*===========================
+==  UNIX command sending  ==
+===========================*/
+
+function sendCommandToUnix(computer, command, callback)
+{
+    var info =
+    {
+        host:       '127.0.0.1',
+        port:       22,
+        username:   'Administrator',
+        password:   'No more days like PHS 2013.'
+    }
+
+    var connection = new ssh();
+    connection.on('ready', connectedToComputer).connect(info);
+    function connectedToComputer()
+    {
+        console.log('Connection established!');
+    }
+}
+
+
 
 
 
