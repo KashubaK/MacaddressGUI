@@ -1,79 +1,109 @@
-var restify  = require('restify');
-var cookies  = require('restify-cookies');
-var fs       = require('fs');
-var socketio = require('socket.io');
-var config   = [];
-
-var api      = require('./api.js');
-var gui      = require('./gui.js');
-var ssh      = require('./ssh.js');
+var restify   = require('restify');
+var cookies   = require('restify-cookies');
+var socketio  = require('socket.io');
+var request   = require('request');
 
 
-
-
-//Load given https certificates into ram. The file extension for the key should be .key and the one for the certificate must be .crt.
-fs.readFile(__dirname + '/../config/https.json', loadHttps);
-function loadHttps(error, data)
+var config =
 {
-    if (error) {  }
-    config['https'] = JSON.parse(data);
+    "Apis":
+    {
+        "powershell":  "https://10.0.0.146",
+        "ssh":         ""
+    },
 
-    if (config['https'].key != '' && config['https'] != '')
+    "listening":
     {
-        fs.readFile(__dirname + '/../' + config['https'].key, loadKey);
-    }else
-    {
-        startListening();
-    }
+        "http":  80,
+        "https": false
+    },
 
-    function loadKey(error, data)
+    "ssl":
     {
-        if (error) { }
-        config['https'].key = data;
-        fs.readFile(__dirname + '/../' + config['https'].certificate, loadCert);
-    }
-
-    function loadCert(error, data)
-    {
-        if (error) { }
-        config['https'].certificate = data;
-        startListening();
+        "key":         "/config/psd401.net.key",
+        "certificate": "/config/STAR_psd401_net.crt"
     }
 }
-
-
+startListening();
 function startListening()
 {
     //Create restify servers.
     var http  = restify.createServer();
-    var https = restify.createServer({ 'key': config['https'].key, 'certificate': config['https'].certificate });
+    //var https = restify.createServer({ 'key': config['ssl'].key, 'certificate': config['ssl'].certificate });
 
     //Make it so we can use req.body.
     http.use(restify.bodyParser());
-    https.use(restify.bodyParser());
+    //https.use(restify.bodyParser());
 
     //Make it so we can use cookies.
     http.use(cookies.parse);
-    https.use(cookies.parse);
+    //https.use(cookies.parse);
 
-    https.use(restify.queryParser());
+    http.use(restify.queryParser());
+    //https.use(restify.queryParser());
 
     //app interface
-    //api.api(http);
-    api.api(https);
+    gui(http,  socketio.listen(http));
+    //gui(https, socketio.listen(https));
 
-    //graphical interface
-    //gui.gui(http);
-    //Https is the restify webserver, socketio.listen is socketio.
-    gui.gui(https, socketio.listen(https));
+
 
     //Start http listening.
-    //http.listen(80);
-    https.listen(443);
+    if (config['listening'].http != false)
+    {
+        http.listen(config['listening'].http);
+    }
+/*
+    if (config['listening'].https != false)
+    {
+        socketio.listen(https).
+        https.listen(config['listening'].https);
+    }*/
 
-
-    //Start ssh listening
-    ssh.server(config['https'].key);
-
-    console.log('powershellAPI 0.0.31 initialized at ' + new Date);
+    console.log('Gui 0.0.1 initialized at ' + new Date);
 }
+
+
+
+function gui(webserver, io)
+{
+    webserver.get(/./, restify.serveStatic({ default: 'index.html', directory: __dirname + '/../web' }));
+    io.sockets.on('connection', socket);
+}
+
+function socket(io)
+{
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+    console.log('Someone connected to socket.io!');
+
+    io.on('addMacAddress', addMacAddress);
+    function addMacAddress(data)
+    {
+        console.log(data);
+        auth = 'Basic ' + new Buffer(data.username + ':' + data.password).toString('base64');
+        var options =
+        {
+            'url':    'https://10.0.0.146/ad/macaddress',
+            'method': 'PUT',
+            'json':
+            {
+                'macAddresses': data.addresses
+            },
+            'headers':
+            {
+                'Authorization': auth
+            }
+        }
+        request(options, getResult);
+    }
+
+    function getResult(error, res, body)
+    {
+        for (var i in body)
+        {
+            io.emit('macAddressesResults', body[i]);
+            console.log(body);
+        }
+    }
+}
+

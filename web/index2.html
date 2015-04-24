@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html ng-app="webTool">
 	<head>
-		<title>Powershell WebTool</title>
+
+	 		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="/javascript.js"></script>
+		<title>WebTool</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 		<link rel="stylesheet" href="http://bootswatch.com/superhero/bootstrap.css">
 		<link rel="stylesheet" href="style.css"/>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>						
  		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
- 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.8/angular.min.js"></script>
+ 		<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.8/angular.min.js"></script>
  		<script src="https://cdn.socket.io/socket.io-1.2.1.js"></script>
- 		<script src="core.js"></script>
+ 		<script src="core.js"></script>-->
+
+
 	</head>
 
 	<body ng-controller="mainController">
@@ -21,15 +26,15 @@
 			<div class="navbar-collapse collapse navbar-responsive-collapse">
 				<ul class="nav navbar-nav">
 					<li><a ng-click="showMac()" href="#">Enter a Mac Address</a></li>
-					<li><a ng-click="showQuery()" href="#">Query AD</a></li>
-					<li><a ng-click="showConsole()" href="#">Console</a></li>
+					<!--<li><a ng-click="showQuery()" href="#">Query AD</a></li>
+					<li><a ng-click="showConsole()" href="#">Console</a></li>-->
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="active" ng-init="startTime()"><a id="clock" href="#"></a></li>
 				</ul>
 			</div>
 		</div>
-		
+	<!--	
 		<div class="modal" id="passDialog" style="display: none;" style="border-radius: 0px">
 		  <div class="modal-dialog" style="border-radius: 0px">
 		    <div class="modal-content">
@@ -48,7 +53,7 @@
 		    </div>
 		  </div>
 		</div>
-
+-->
 		<div class="container" style="border-radius: 0px;">
 			<div class="row" style="border-radius: 0px">
 				<div class="col-xs-12 col-sm-10 col-xs-offset-0 col-sm-offset-1 col-md-offset-4 col-md-4 well" id="macaddr" style="border-radius: 0px; margin-top: 0%;">
@@ -161,6 +166,6 @@
 			<div id="followingBallsG_4" class="followingBallsG">
 			</div>
 		</div>
-		<a class="btn btn-primary btn-xs" ng-click="" type="button" href="/w" style="position: absolute; right: 0; bottom: 0">Content too dark?</a>
+		<!--<a class="btn btn-primary btn-xs" ng-click="" type="button" href="/w" style="position: absolute; right: 0; bottom: 0">Content too dark?</a>-->
 	</body>
 </html>

@@ -1,7 +1,8 @@
 // public/core.js
+
 var macAddressTool = angular.module('webTool', []);
 
-var socket = io();
+var socket = io('127.0.0.1');
 
 socket.on('console req', function(res) {
 	$('#con').append(res);
@@ -20,9 +21,15 @@ function mainController($scope, $http) {
 	$scope.addresses = [{address: ''}];
 	// look at all these post requests
 	// when submitting the add form, send the text to the node API
-	$scope.createAddresses = function() {
+	$scope.createAddresses = function() 
+	{
 		$('#followingBallsG').show('fade');
 		$('.drop-return').hide('blind');
+
+
+
+
+
 		$http.post('/network/addmac', $scope.addresses)
 			.success(function(data) {
 				$('#followingBallsG').hide('fade');
@@ -33,8 +40,11 @@ function mainController($scope, $http) {
 			.error(function(data) {
 				console.error('Error: ' +data);
 			});
-	};
 
+
+
+	};
+/*
 	$scope.getConsole = function() {
 		socket.emit('console req', 'please');
 	}
@@ -61,7 +71,7 @@ function mainController($scope, $http) {
 		$('#passDialog').show('fade');
 		$('#authText').focus();
 	}
-
+*/
 	$scope.showMac = function() {
 		$('#macaddr').show('fade');
 	}
@@ -121,41 +131,6 @@ function mainController($scope, $http) {
 		$('#uName').focus();
 	}
 
-	$scope.startTime = function() {
-		function time() {
-		    var today = new Date();
-		    var h = today.getHours();
-		    var m = today.getMinutes();
-		    var s = today.getSeconds();
-		    m = checkTime(m);
-		    s = checkTime(s);
-			var todaysDate = new Date();
-			var dd = today.getDate();
-			var mm = today.getMonth()+1; //January is 0!
-			var yyyy = today.getFullYear();
-
-			if (dd < 10) {
-			    dd = '0' + dd;
-			} 
-
-			if (mm < 10) {
-			    mm = '0' + mm;
-			} 
-
-			todaysDate = mm + '/' + dd + '/' + yyyy;
-
-			$('#clock').text(h+":"+m+":"+s+" - " +todaysDate);
-			var t = setTimeout(function(){time()},500);
-		}
-		function checkTime(i) {
-		    if (i < 10) {
-		    	i = "0" + i
-		    };  // add zero in front of numbers < 10
-
-		    return i;
-		}
-		time();
-	}
 
 	$scope.dismiss = function() {
 		$('#passDialog').hide('fade');
@@ -206,11 +181,6 @@ function mainController($scope, $http) {
 		//Replace incorrect characters, prevent incorrect character from being entered
 		if (address.address) {
 			address.address = address.address.toLowerCase();
-			address.address = address.address.replace(/ /g, '');
-			address.address = address.address.replace(/:/g, '');
-			address.address = address.address.replace(/l/g, '1');
-			address.address = address.address.replace(/o/g, '0');
-			address.address = address.address.replace(/i/g, '1');
 			address.address = address.address.replace(/[^a-f0-9]/g, '');
 			if (address.address.length == 12) {
 				address.valid = true;

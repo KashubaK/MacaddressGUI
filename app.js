@@ -4,7 +4,7 @@ var process = require('child_process');
 var async = require('async');
 var fs = require('fs'); 
 var socket = require('socket.io');
-//var edge = require('edge');
+var edge = require('edge');
 //create server
 var server = restify.createServer();
 server.use(restify.bodyParser({ mapParams: false }));
@@ -26,22 +26,14 @@ function log(data, bug) {
 	
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+var enterPS = edge.func('ps', function () {/*
+	  $ma = $inputFromJS
+	  $spwd = ConvertTo-SecureString -AsPlainText $ma -Force
+	  New-ADUser -Name $ma -Path "OU=Stu_Test,DC=Peninsula,DC=wednet,DC=edu" -AccountPassword $spwd -enable $true -DisplayName $ma -GivenName $ma -SamAccountName $ma -UserPrincipalName $ma
+	  Set-ADUser -Identity $ma -PasswordNeverExpires $true
+	  Add-ADGroupMember -Identity “CN=psd-secure,OU=Stu_Test,DC=Peninsula,DC=wednet,DC=edu” -member $ma
+	  Write-Host "Mac address: $ma - Success! :)"
+*/});
 
 //give the interface
 server.get('/', function (req, res) {
@@ -225,7 +217,7 @@ server.post('/network/addmac', function (req, res) {
 
 			if (address.valid) {
 				//console.log('ps ' +fs.readFileSync('C:/Users/serv_datascript/Desktop/New-MacAddress.ps1'));
-					process.exec('powershell.exe C:/Users/serv_datascript/Desktop/New-MacAddress.ps1 ' + address.address, function setResponse (err, stdout, stderr) {
+					process.exec('powershell.exe C:/Users/serv_datascript/Desktop/New-MacAddress.ps1 ' +address.address, function setResponse (err, stdout, stderr) {
 					if (stdout.indexOf('Already') == -1) {
 						address.added = true; //did get added
 						address.note = 'Success!'; //set note as powershell output for client handling
