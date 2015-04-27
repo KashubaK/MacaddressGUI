@@ -21,15 +21,14 @@
 			<input type="text" class="form-control username" id="username" placeholder="Username" autocomplete="off" style="cursor: auto; background-attachment: scroll; background-position: 100% 50%; background-repeat: no-repeat; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
 			<input type="password" class="form-control password" id="password" placeholder="Password" autocomplete="off" style="cursor: auto; background-attachment: scroll; background-position: 100% 50%; background-repeat: no-repeat; border-top-left-radius: 0; border-top-right-radius: 0;">
 			<br/>
-		    <div class="form-group">
-		    	<div class="col-lg-12">
-		        	<textarea class="form-control" rows="15" id="macAddresses"></textarea>
-		        	<span class="help-block">Pop mac addresses in above. Separate each one with a newline.</span>
-		      	</div>
-		    </div>
-			<a href="#" id="send" onclick="addMacAddresses()" class="btn btn-default btn-lg btn-block">Send</a>
-			<div id="macAddressesResults" class="">
-			</div>
+			<select class="form-control" id="action">
+		      	<option>Add macaddress</option>
+		      	<option>Remove macaddress</option>
+        	</select>
+        	<br/>
+	        <span class="help-block">Each macaddress must be seperated with a new line.</span>
+	        <textarea class="form-control" rows="15" id="macAddresses" stlye="border-bottom-left-radius: 0; border-bottom-right-radius: 0;"></textarea>
+			<a href="#" id="send" onclick="addMacAddresses()" class="btn btn-default btn-lg btn-block" stlye="border-top-left-radius: 0; border-top-right-radius: 0;">Send</a>
 		</form>
 
 		<br/>

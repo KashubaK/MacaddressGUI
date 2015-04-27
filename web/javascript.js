@@ -1,7 +1,7 @@
 
 var socket = io('http://127.0.0.1/');
 
-socket.on('macAddressFinished', updateTable);
+socket.on('macAddressesResults', updateTable);
 function updateTable(data) 
 {
 	console.log(data);
@@ -12,9 +12,17 @@ function updateTable(data)
     var success = row.insertCell(1);
     var error   = row.insertCell(2);
 
-    name.innerHTML = data.macAddress;
-    success.innerHTML = data.success;
-    error.innerHTML = data.error;
+    if (typeof data.macAddress === 'undefined' && typeof data.error === 'undefined')
+    {
+    	error.innerHTML = "Bad username || password.";
+    }else
+    {
+	    name.innerHTML = data.macAddress;
+	    success.innerHTML = data.success;
+	    error.innerHTML = data.error;
+    }
+
+
 }
 
 
@@ -25,5 +33,12 @@ function addMacAddresses()
     var password = document.getElementById('password').value;
 
     console.log(username + password);
-    socket.emit('addMacAddress', { 'username': username, 'password': password, 'addresses': macAddresses });
+
+    console.log(document.getElementById("action").value);
+
+    if (document.getElementById("action").value == "Add macaddress")
+    	socket.emit('addMacAddress', { 'username': username, 'password': password, 'addresses': macAddresses });
+
+    if (document.getElementById("action").value == "Remove macaddress")
+    	socket.emit('delMacAddress', { 'username': username, 'password': password, 'addresses': macAddresses });
 }

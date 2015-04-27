@@ -79,7 +79,6 @@ function socket(io)
     io.on('addMacAddress', addMacAddress);
     function addMacAddress(data)
     {
-        console.log(data);
         auth = 'Basic ' + new Buffer(data.username + ':' + data.password).toString('base64');
         var options =
         {
@@ -97,12 +96,34 @@ function socket(io)
         request(options, getResult);
     }
 
+
+    io.on('delMacAddress', delMacAddress);
+    function delMacAddress(data)
+    {
+        auth = 'Basic ' + new Buffer(data.username + ':' + data.password).toString('base64');
+        var options =
+        {
+            'url':    'https://10.0.0.146/ad/macaddress',
+            'method': 'DELETE',
+            'json':
+            {
+                'macAddresses': data.addresses
+            },
+            'headers':
+            {
+                'Authorization': auth
+            }
+        }
+        request(options, getResult);
+    }
+
+
+
     function getResult(error, res, body)
     {
         for (var i in body)
         {
             io.emit('macAddressesResults', body[i]);
-            console.log(body);
         }
     }
 }
