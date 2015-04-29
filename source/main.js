@@ -16,12 +16,6 @@ var config =
     {
         "http":  80,
         "https": false
-    },
-
-    "ssl":
-    {
-        "key":         "/config/psd401.net.key",
-        "certificate": "/config/STAR_psd401_net.crt"
     }
 }
 startListening();
