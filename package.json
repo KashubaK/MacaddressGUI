@@ -17,6 +17,6 @@
     "cas":              "0.0.3"
   },
   "author": "Darren C. & Kyle K. & Brandon M.",
-  "license": "",
+  "license": "MIT",
   "homepage": "https://github.com/psd401/PowershellAPI"
 }
