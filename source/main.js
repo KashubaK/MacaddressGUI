@@ -14,7 +14,7 @@ var config =
 
     "listening":
     {
-        "http":  process.env.PORT || 80,
+        "http":  process.env ? process.env.PORT : 80,
         "https": false
     }
 }
@@ -54,7 +54,7 @@ function startListening()
         https.listen(config['listening'].https);
     }*/
 
-    console.log('Gui 0.0.1 initialized at ' + new Date);
+    console.log('Gui 0.0.1 initialized at ' + new Date + ' on port ' + config['listening'].http);
 }
 
 
