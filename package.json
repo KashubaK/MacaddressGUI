@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git@github.com:psd401/PowershellAPI.git"
   },
+  "scripts": {
+	"start": "source/main.js"
+  },
   "dependencies": 
   {
     "restify":          "2.8.1",
