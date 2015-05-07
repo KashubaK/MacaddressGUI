@@ -13,7 +13,7 @@ ENV NODE_ENV production
 ENV PORT 2368
 
 # Define default command.
-CMD ["node", "/source/main.js"]
+CMD ["node", "/src/source/main.js"]
 
 # Expose ports.
 EXPOSE 2368
