@@ -6,18 +6,19 @@ var request   = require('request');
 
 var config =
 {
-    "Apis":
+    "apis":
     {
-        "powershell":  "https://10.0.0.146",
+        "powershell":  "10.0.0.146",
         "ssh":         ""
     },
 
     "listening":
     {
-        "http":  process.env ? process.env.PORT : 80,
-        "https": false
+        "http":  /*process.env ? process.env.PORT : */80
     }
-}
+};
+
+
 startListening();
 function startListening()
 {
@@ -40,19 +41,8 @@ function startListening()
     gui(http,  socketio.listen(http));
     //gui(https, socketio.listen(https));
 
-
-
     //Start http listening.
-    if (config['listening'].http != false)
-    {
-        http.listen(config['listening'].http);
-    }
-/*
-    if (config['listening'].https != false)
-    {
-        socketio.listen(https).
-        https.listen(config['listening'].https);
-    }*/
+    http.listen(config['listening'].http);
 
     console.log('Gui 0.0.1 initialized at ' + new Date + ' on port ' + config['listening'].http);
 }
@@ -73,10 +63,10 @@ function socket(io)
     io.on('addMacAddress', addMacAddress);
     function addMacAddress(data)
     {
-        auth = 'Basic ' + new Buffer(data.username + ':' + data.password).toString('base64');
+        var auth = 'Basic ' + new Buffer(data.username + ':' + data.password).toString('base64');
         var options =
         {
-            'url':    'https://10.0.0.146/ad/macaddress',
+            'url':    'https://' + config['apis'].powershell + '/ad/macaddress',
             'method': 'PUT',
             'json':
             {
@@ -94,10 +84,10 @@ function socket(io)
     io.on('delMacAddress', delMacAddress);
     function delMacAddress(data)
     {
-        auth = 'Basic ' + new Buffer(data.username + ':' + data.password).toString('base64');
+        var auth = 'Basic ' + new Buffer(data.username + ':' + data.password).toString('base64');
         var options =
         {
-            'url':    'https://10.0.0.146/ad/macaddress',
+            'url':    'https://' + config['apis'].powershell + '/ad/macaddress',
             'method': 'DELETE',
             'json':
             {
