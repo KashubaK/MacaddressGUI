@@ -14,7 +14,7 @@ var config =
 
     "listening":
     {
-        "http":  /*process.env ? process.env.PORT : */80
+        "http":  process.env ? process.env.PORT : 80
     }
 };
 
@@ -55,14 +55,24 @@ function gui(webserver, io)
     io.sockets.on('connection', socket);
 }
 
+var openConnections = 0;
 function socket(io)
 {
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
-    console.log('Someone connected to socket.io!');
+    
+    console.log(++openConnections + ' clients now connected to socketio.');
+
+    io.on('disconnect', disconnect);
+    function disconnect()
+    {
+        console.log(--openConnections + ' clients now connected to socketio.');
+    }
+
 
     io.on('addMacAddress', addMacAddress);
     function addMacAddress(data)
     {
+        console.log(data);
         var auth = 'Basic ' + new Buffer(data.username + ':' + data.password).toString('base64');
         var options =
         {
@@ -70,13 +80,13 @@ function socket(io)
             'method': 'PUT',
             'json':
             {
-                'macAddresses': data.addresses
+                'macAddresses': [ data.addresses ]
             },
             'headers':
             {
                 'Authorization': auth
             }
-        }
+        };
         request(options, getResult);
     }
 
@@ -91,13 +101,13 @@ function socket(io)
             'method': 'DELETE',
             'json':
             {
-                'macAddresses': data.addresses
+                'macAddresses': [ data.addresses ]
             },
             'headers':
             {
                 'Authorization': auth
             }
-        }
+        };
         request(options, getResult);
     }
 
