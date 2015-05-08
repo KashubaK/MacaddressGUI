@@ -1,5 +1,5 @@
 
-var socket = io('http://127.0.0.1/');
+var socket = io('http://addmac.apps1.psd401.net/');
 
 socket.on('macAddressesResults', updateTable);
 function updateTable(data) 
