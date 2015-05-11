@@ -33,8 +33,9 @@ function updateTable(data)
     name.innerHTML    = data.macAddress;
     success.innerHTML = data.success;
     
-    if (error != 'undefined')
-        error.innerHTML   = data.error;
+    if (error != 'undefined' || error != null)
+        for (var i in data.error)
+            error.innerHTML += data.error[i] + '<br/>';
 
 }
 

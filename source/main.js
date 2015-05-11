@@ -1,3 +1,4 @@
+/// <reference path="../typings/node/node.d.ts"/>
 var restify   = require('restify');
 var cookies   = require('restify-cookies');
 var socketio  = require('socket.io');
@@ -14,7 +15,7 @@ var config =
 
     "listening":
     {
-        "http":  process.env ? process.env.PORT : 80
+        "http":  /*process.env ? process.env.PORT :*/ 80
     }
 };
 
@@ -72,7 +73,7 @@ function socket(io)
     io.on('addMacAddress', addMacAddress);
     function addMacAddress(data)
     {
-        console.log(data);
+        //console.log(data);
         var auth = 'Basic ' + new Buffer(data.username + ':' + data.password).toString('base64');
         var options =
         {
@@ -115,6 +116,8 @@ function socket(io)
 
     function getResult(error, res, body)
     {
+        if (error) { console.log(error); }
+        console.log(body);
         for (var i in body)
         {
             io.emit('macAddressesResults', body[i]);
