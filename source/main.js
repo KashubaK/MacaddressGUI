@@ -9,7 +9,7 @@ var config =
 {
     "apis":
     {
-        "powershell":  "10.0.0.146",
+        "powershell":  "psapi.psd401.net",
         "ssh":         ""
     },
 
