@@ -15,7 +15,7 @@ function updateTable(data)
     var table = document.getElementById("macAddressesResults");
 
     var row = table.insertRow(table.rows.length);
-    if (data.success == false)
+    if (data.success === false)
     {
         row.className = "danger";        
     }else
@@ -33,7 +33,7 @@ function updateTable(data)
     name.innerHTML    = data.macAddress;
     success.innerHTML = data.success;
     
-    if (error != 'undefined' || error != null)
+    if (error != 'undefined' || error !== null)
         for (var i in data.error)
             error.innerHTML += data.error[i] + '<br/>';
 
@@ -63,10 +63,10 @@ function addMacAddresses()
         totalCommands++;
         updateProgressBar(commandsWaitingFor, totalCommands);
         
-        if (document.getElementById("action").value == "Add macaddress")
+        if (document.getElementById("action").value == "Add macaddress" && macAddresses[i].length > 0)
     	   socket.emit('addMacAddress', { 'username': username, 'password': password, 'addresses': macAddresses[i] });      
 
-        if (document.getElementById("action").value == "Remove macaddress")
+        if (document.getElementById("action").value == "Remove macaddress" && macAddresses[i].length > 0)
     	   socket.emit('delMacAddress', { 'username': username, 'password': password, 'addresses': macAddresses[i] }); 
     }
 
