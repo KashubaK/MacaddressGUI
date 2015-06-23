@@ -1,6 +1,6 @@
 {
   "name": "gui",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "A gui for powershellapi / adding mac addresses",
   "main": "source/main.js",
   "repository": 
