@@ -27,11 +27,16 @@ function updateTable(data)
     var success = row.insertCell(1);
     var error   = row.insertCell(2);
 
-    
+
     
     
     name.innerHTML    = data.macAddress;
-    success.innerHTML = data.success;
+
+    if (data.success === true)
+        success.innerHTML = "Yes";
+
+    if (data.success === false)
+        success.innerHTML = "No";
     
     if (error != 'undefined' || error !== null)
         for (var i in data.error)
@@ -39,13 +44,25 @@ function updateTable(data)
 
 }
 
+socket.on('badUserOrPass', showBadUserOrPass);
+function showBadUserOrPass()
+{
+    document.getElementById('badUserOrPass').style.display = 'block';
+    updateProgressBar(commandsWaitingFor, --totalCommands);
+
+}
+
+function hideBadUserOrPass()
+{
+    document.getElementById('badUserOrPass').style.display = 'none';
+}
 
 function updateProgressBar(amount, total)
 {
     var percent = amount / total;
     var bar = document.getElementById("progress-bar");
     bar.style.width = percent * 100 + "%";
-    bar.innerHTML   = percent * 100 + "%";
+    bar.innerHTML   = amount + " / " + total + " requests";
 }
 
 
@@ -60,6 +77,9 @@ function addMacAddresses()
 
     for (var i in macAddresses)
     {
+        if (macAddresses[i] === "")
+            return;
+
         totalCommands++;
         updateProgressBar(commandsWaitingFor, totalCommands);
         

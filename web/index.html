@@ -18,19 +18,30 @@
 	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
 </head>
 
-<body>
+<body onload="hideBadUserOrPass();">
 
 	<div class="col-md-offset-4 col-md-4">
 	<br/>
 		<form class="form-horizontal">
+
+			<div id="badUserOrPass" class="alert alert-dismissible alert-danger">
+				<button type="button" class="close" onclick="hideBadUserOrPass()">x</button>
+				Bad username or password. Make sure the user is in the TSD staff group OU=Staff,OU=TSD,OU=PSD,DC=Peninsula,DC=wednet,DC=edu.
+			</div>
+
+			<!--username & pass -->
 			<input type="text" class="form-control username" id="username" placeholder="Username" autocomplete="off" style="cursor: auto; background-attachment: scroll; background-position: 100% 50%; background-repeat: no-repeat; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
 			<input type="password" class="form-control password" id="password" placeholder="Password" autocomplete="off" style="cursor: auto; background-attachment: scroll; background-position: 100% 50%; background-repeat: no-repeat; border-top-left-radius: 0; border-top-right-radius: 0;">
 			<br/>
+
+
 			<select class="form-control" id="action">
 		      	<option>Add macaddress</option>
 		      	<option>Remove macaddress</option>
         	</select>
         	<br/>
+
+			<!-- macaddress block -->
 	        <span class="help-block">Each macaddress must be separated with a new line.</span>
 	        <textarea class="form-control" rows="15" id="macAddresses" stlye="border-bottom-left-radius: 0; border-bottom-right-radius: 0;"></textarea>
 			<a href="#" id="send" onclick="addMacAddresses()" class="btn btn-default btn-lg btn-block" stlye="border-top-left-radius: 0; border-top-right-radius: 0;">Send</a>
@@ -49,7 +60,7 @@
 			<thead>
 				<tr>
 					<th>Macaddresss</th>
-					<th>Success</th>
+					<th>Was entered or removed</th>
 					<th>Error</th>
 				</tr>
 			</thead>

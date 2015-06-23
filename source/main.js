@@ -15,7 +15,7 @@ var config =
 
     "listening":
     {
-        "http":  process.env ? process.env.PORT : 80
+        "http": /* process.env ? process.env.PORT :*/ 80
     }
 };
 
@@ -43,9 +43,9 @@ function startListening()
     //gui(https, socketio.listen(https));
 
     //Start http listening.
-    http.listen(config['listening'].http);
+    http.listen(config.listening.http);
 
-    console.log('Gui 0.0.1 initialized at ' + new Date + ' on port ' + config['listening'].http);
+    console.log('Gui 0.0.1 initialized at ' + new Date() + ' on port ' + config.listening.http);
 }
 
 
@@ -59,7 +59,7 @@ function gui(webserver, io)
 var openConnections = 0;
 function socket(io)
 {
-    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
     
     console.log(++openConnections + ' clients now connected to socketio.');
 
@@ -77,7 +77,7 @@ function socket(io)
         var auth = 'Basic ' + new Buffer(data.username + ':' + data.password).toString('base64');
         var options =
         {
-            'url':    'https://' + config['apis'].powershell + '/ad/macaddress',
+            'url':    'https://' + config.apis.powershell + '/ad/macaddress',
             'method': 'PUT',
             'json':
             {
@@ -98,7 +98,7 @@ function socket(io)
         var auth = 'Basic ' + new Buffer(data.username + ':' + data.password).toString('base64');
         var options =
         {
-            'url':    'https://' + config['apis'].powershell + '/ad/macaddress',
+            'url':    'https://' + config.apis.powershell + '/ad/macaddress',
             'method': 'DELETE',
             'json':
             {
@@ -117,11 +117,16 @@ function socket(io)
     function getResult(error, res, body)
     {
         if (error) { console.log(error); }
-        console.log(body);
-        for (var i in body)
+
+        if (body.auth === false)
         {
-            io.emit('macAddressesResults', body[i]);
+            io.emit('badUserOrPass');
+            return;
         }
+
+
+        for (var i in body)
+            io.emit('macAddressesResults', body[i]);
     }
 }
 
