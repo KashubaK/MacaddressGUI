@@ -15,7 +15,7 @@ var config =
 
     "listening":
     {
-        "http": /* process.env ? process.env.PORT :*/ 80
+        "http": process.env ? process.env.PORT : 80
     }
 };
 
