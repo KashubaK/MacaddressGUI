@@ -15,12 +15,13 @@
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		
-	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+
+
+	<link rel="icon" type="image/png" href="/noodle.png">
 </head>
 
 <body onload="hideBadUserOrPass();">
-
-	<div class="col-md-offset-4 col-md-4">
+	<div class="col-md-4">
 	<br/>
 		<form class="form-horizontal">
 
@@ -43,19 +44,19 @@
 
 			<!-- macaddress block -->
 	        <span class="help-block">Each macaddress must be separated with a new line.</span>
-	        <textarea class="form-control" rows="15" id="macAddresses" stlye="border-bottom-left-radius: 0; border-bottom-right-radius: 0;"></textarea>
+	        <div class="progress flatBar">
+				<div id="progress-bar" class="progress-bar" style="width: 0%;"></div>
+			</div>
+	        <textarea class="flat form-control" rows="15" id="macAddresses" stlye="border-bottom-left-radius: 0; border-bottom-right-radius: 0;"></textarea>
 			<a href="#" id="send" onclick="addMacAddresses()" class="btn btn-default btn-lg btn-block" stlye="border-top-left-radius: 0; border-top-right-radius: 0;">Send</a>
 		</form>
 
-		<br/>
-		<br/>
-		<br/>
+
+
 	</div>
 	
-	<div class="col-md-offset-2 col-md-8">
-		<div class="progress">
-			<div id="progress-bar" class="progress-bar" style="width: 0%;"></div>
-		</div>
+	<div class="col-md-8">
+		<br/>
 		<table class="table table-striped table-hover" id="macAddressesResults">
 			<thead>
 				<tr>

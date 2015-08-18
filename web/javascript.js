@@ -14,7 +14,7 @@ function updateTable(data)
 	console.log(data);
     var table = document.getElementById("macAddressesResults");
 
-    var row = table.insertRow(table.rows.length);
+    var row = table.insertRow(1);
     if (data.success === false)
     {
         row.className = "danger";        
@@ -65,6 +65,13 @@ function updateProgressBar(amount, total)
     bar.innerHTML   = amount + " / " + total + " requests";
 }
 
+function updateProgressBarErr(amount, total)
+{
+    var percent = amount / total;
+    var bar = document.getElementById("progress-bar");
+    bar.style.width = percent * 100 + "%";
+    bar.innerHTML   = amount + " / " + total + " requests";
+}
 
 function addMacAddresses()
 {

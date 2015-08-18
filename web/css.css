@@ -14,3 +14,17 @@ body
 {
   font-family: 'Source Code Pro';
 }
+
+.flatBar
+{
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+
+.flatBar
+{
+    border-radius: 0 !important;
+}
+
+
