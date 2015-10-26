@@ -69,8 +69,8 @@ function socket(io)
         console.log(--openConnections + ' clients now connected to socketio.');
     }
 
-
     io.on('addMacAddress', addMacAddress);
+    
     function addMacAddress(data)
     {
         //console.log(data);
@@ -93,6 +93,7 @@ function socket(io)
 
 
     io.on('delMacAddress', delMacAddress);
+    
     function delMacAddress(data)
     {
         var auth = 'Basic ' + new Buffer(data.username + ':' + data.password).toString('base64');
@@ -112,21 +113,23 @@ function socket(io)
         request(options, getResult);
     }
 
-
-
     function getResult(error, res, body)
     {
         if (error) { console.log(error); }
-
-        if (body.auth === false)
-        {
-            io.emit('badUserOrPass');
+        
+        if (body) {
+            if (body.auth === false)
+            {
+                io.emit('badUserOrPass');
+                return;
+            } else {
+                for (var i in body)
+                    io.emit('macAddressesResults', body[i]);
+            }
+        } else {
+            console.log("No response from the PowershellAPI.");
             return;
         }
-
-
-        for (var i in body)
-            io.emit('macAddressesResults', body[i]);
     }
 }
 
